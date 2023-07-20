@@ -89,7 +89,7 @@ jobs:
           # ssh port of the server
           PORT: 22 # optional, default is 22
           # user of the server
-          USER: root
+          USER: ubuntu
           # private ssh key registered on the server
           PRIVATE_SSH_KEY: ${{ secrets.SERVER_KEY }}
           # command to be executed
