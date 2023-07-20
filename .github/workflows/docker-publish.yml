@@ -91,6 +91,6 @@ jobs:
           # user of the server
           USER: ubuntu
           # private ssh key registered on the server
-          PRIVATE_SSH_KEY: ${{ secrets.SERVER_KEY }}
+          PASSWORD: ${{ secrets.PASSWORD }}
           # command to be executed
           COMMAND: cd /root && ./run.sh
