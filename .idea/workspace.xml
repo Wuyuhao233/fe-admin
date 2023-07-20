@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ff6158f4-7083-4782-b669-832e86896240" name="变更" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/node_modules/.pnpm/@ant-design+pro-form@2.13.4_antd@4.24.10_rc-field-form@1.32.0_react-dom@18.2.0_react@18.2.0/node_modules/@ant-design/pro-form/es/layouts/LoginFormPage/index.d.ts" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/node_modules/.pnpm/@ant-design+pro-table@3.7.4_antd@4.24.10_rc-field-form@1.32.0_react-dom@18.2.0_react@18.2.0/node_modules/@ant-design/pro-table/es/typing.d.ts" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Qatebtuk8VDru8EvzfvaBO10U4" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="false" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showScratchesAndConsoles" value="false" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/emos_admin&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;pnpm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;E:\\emos_admin\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.general&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;E:\\emos_admin\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\emos_admin\src\services\login" />
+      <recent name="E:\emos_admin\src\pages\Login" />
+      <recent name="C:\Users\Administrator\Desktop\myUmi\src\services\userControllers" />
+      <recent name="C:\Users\Administrator\Desktop\myUmi\src\services\loginControllers" />
+      <recent name="C:\Users\Administrator\Desktop\myUmi\src\services" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.dev" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="ff6158f4-7083-4782-b669-832e86896240" name="变更" comment="" />
+      <created>1685603616115</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1685603616115</updated>
+      <workItem from="1685603617073" duration="14794000" />
+      <workItem from="1685672853778" duration="605000" />
+      <workItem from="1685673646096" duration="98000" />
+      <workItem from="1685673869012" duration="1814000" />
+      <workItem from="1685690024729" duration="9609000" />
+      <workItem from="1685776796815" duration="2045000" />
+      <workItem from="1687920875764" duration="254000" />
+      <workItem from="1688342264885" duration="2688000" />
+      <workItem from="1688346415515" duration="121000" />
+      <workItem from="1688346551378" duration="14018000" />
+      <workItem from="1688515302053" duration="1900000" />
+      <workItem from="1688602467923" duration="620000" />
+      <workItem from="1688688001007" duration="6678000" />
+      <workItem from="1688786583531" duration="36000" />
+      <workItem from="1688948521331" duration="911000" />
+      <workItem from="1688949683911" duration="9000" />
+      <workItem from="1688949710863" duration="22000" />
+      <workItem from="1688949744972" duration="5000" />
+      <workItem from="1688949777434" duration="36000" />
+      <workItem from="1688949822499" duration="706000" />
+      <workItem from="1689207728542" duration="11275000" />
+      <workItem from="1689296365276" duration="1285000" />
+      <workItem from="1689556317845" duration="9497000" />
+      <workItem from="1689640176054" duration="18689000" />
+      <workItem from="1689728062761" duration="8076000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

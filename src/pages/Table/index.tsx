@@ -1,0 +1,298 @@
+import { useReqWithMsg } from '@/hooks/useReqWithMsg';
+import userController, { UserInfo } from '@/pages/Table/userController';
+import {
+  ActionType,
+  FooterToolbar,
+  PageContainer,
+  ProDescriptions,
+  ProDescriptionsItemProps,
+  ProTable,
+} from '@ant-design/pro-components';
+import { Button, Divider, Drawer, message } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
+import CreateForm from './components/CreateForm';
+import UpdateForm from './components/UpdateForm';
+
+const { addUser, queryUserList, deleteUser, modifyUser } = userController;
+
+/**
+ * 添加节点
+ * @param fields
+ */
+const handleAdd = async (fields: UserInfo) => {
+  console.log(fields);
+  const hide = message.loading('正在添加');
+  try {
+    await addUser({ ...fields });
+    hide();
+    message.success('添加成功');
+    return true;
+  } catch (error) {
+    hide();
+    message.error('添加失败请重试！');
+    return false;
+  }
+};
+
+/**
+ * 更新节点
+ * @param fields
+ */
+const handleUpdate = async (fields: UserInfo) => {
+  const hide = message.loading('正在配置');
+  console.log(fields);
+  try {
+    await modifyUser({
+      ...fields,
+    });
+    hide();
+
+    message.success('配置成功');
+    return true;
+  } catch (error) {
+    hide();
+    message.error('配置失败请重试！');
+    return false;
+  }
+};
+
+/**
+ *  删除节点
+ * @param selectedRows
+ */
+const handleRemove = async (selectedRows: UserInfo[]) => {
+  const hide = message.loading('正在删除');
+  if (!selectedRows) return true;
+  try {
+    await deleteUser(selectedRows.find((row) => row.id)?.id || '');
+    hide();
+    message.success('删除成功，即将刷新');
+    return true;
+  } catch (error) {
+    hide();
+    message.error('删除失败，请重试');
+    return false;
+  }
+};
+
+const UserList: React.FC<unknown> = () => {
+  const [createModalVisible, handleModalVisible] = useState<boolean>(false);
+  const [updateModalVisible, handleUpdateModalVisible] =
+    useState<boolean>(false);
+  const [stepFormValues, setStepFormValues] = useState({});
+  const actionRef = useRef<ActionType>();
+  const [row, setRow] = useState<UserInfo>();
+  const [selectedRowsState, setSelectedRows] = useState<UserInfo[]>([]);
+
+  const { run: deleteUserById } = useReqWithMsg(
+    deleteUser,
+    actionRef.current?.reload,
+  );
+  useEffect(() => {
+    queryUserList({
+      current: 1,
+      pageSize: 10,
+    }).then((res) => {
+      console.log('useEffect', res);
+    });
+  }, []);
+  const columns: ProDescriptionsItemProps<UserInfo>[] = [
+    {
+      title: 'id',
+      dataIndex: 'id',
+      tip: '名称是唯一的 key',
+      hideInForm: true,
+    },
+    {
+      title: '用户昵称',
+      dataIndex: 'name',
+      valueType: 'text',
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '名称为必填项',
+          },
+        ],
+      },
+    },
+    {
+      title: '微信昵称',
+      dataIndex: 'nickname',
+      render(_, record) {
+        return record.openId ? record.nickname : <a>绑定微信</a>;
+      },
+    },
+    {
+      title: '性别',
+      dataIndex: 'gender',
+      // hideInForm: true,
+      valueEnum: {
+        1: { text: '男', status: 'MALE' },
+        2: { text: '女', status: 'FEMALE' },
+        3: { text: '其他', status: 'other' },
+      },
+    },
+    {
+      title: '手机号',
+      dataIndex: 'phone',
+      valueType: 'text',
+    },
+    {
+      title: '邮箱',
+      dataIndex: 'email',
+      valueType: 'text',
+    },
+    {
+      title: '角色',
+      dataIndex: 'roles',
+      valueType: 'text',
+      renderText: (roles) => {
+        return roles;
+      },
+    },
+    {
+      title: '操作',
+      dataIndex: 'option',
+      valueType: 'option',
+      render: (_, record) => (
+        <>
+          <a
+            onClick={() => {
+              handleUpdateModalVisible(true);
+              setStepFormValues(record);
+            }}
+          >
+            配置
+          </a>
+          <Divider type="vertical" />
+          <a onClick={() => deleteUserById(record.id)}>删除用户</a>
+        </>
+      ),
+    },
+  ];
+
+  return (
+    <PageContainer
+      header={{
+        title: '用户管理',
+      }}
+    >
+      <ProTable<UserInfo>
+        headerTitle="查询表格"
+        actionRef={actionRef}
+        rowKey="id"
+        search={{
+          labelWidth: 120,
+        }}
+        toolBarRender={() => [
+          <Button
+            key="1"
+            type="primary"
+            onClick={() => handleModalVisible(true)}
+          >
+            新建
+          </Button>,
+        ]}
+        request={async (params) => {
+          const { data, success } = await queryUserList({
+            pageSize: params.pageSize || 15,
+            current: params.current || 1,
+          });
+          console.log('queryUserList', data);
+          return {
+            data,
+            success,
+          };
+        }}
+        columns={columns}
+      />
+      {selectedRowsState?.length > 0 && (
+        <FooterToolbar
+          extra={
+            <div>
+              已选择{' '}
+              <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a>{' '}
+              项&nbsp;&nbsp;
+            </div>
+          }
+        >
+          <Button
+            onClick={async () => {
+              await handleRemove(selectedRowsState);
+              setSelectedRows([]);
+              actionRef.current?.reloadAndRest?.();
+            }}
+          >
+            批量删除
+          </Button>
+          <Button type="primary">批量审批</Button>
+        </FooterToolbar>
+      )}
+      <CreateForm
+        onCancel={() => handleModalVisible(false)}
+        modalVisible={createModalVisible}
+      >
+        <ProTable<UserInfo, UserInfo>
+          onSubmit={async (value) => {
+            const success = await handleAdd(value);
+            if (success) {
+              handleModalVisible(false);
+              if (actionRef.current) {
+                actionRef.current.reload();
+              }
+            }
+          }}
+          rowKey="id"
+          type="form"
+          columns={columns}
+        />
+      </CreateForm>
+      {stepFormValues && Object.keys(stepFormValues).length ? (
+        <UpdateForm
+          onSubmit={async (value) => {
+            const success = await handleUpdate(value as UserInfo);
+            if (success) {
+              handleUpdateModalVisible(false);
+              setStepFormValues({});
+              if (actionRef.current) {
+                actionRef.current.reload();
+              }
+            }
+          }}
+          onCancel={() => {
+            handleUpdateModalVisible(false);
+            setStepFormValues({});
+          }}
+          updateModalVisible={updateModalVisible}
+          values={stepFormValues}
+        />
+      ) : null}
+
+      <Drawer
+        width={600}
+        open={!!row}
+        onClose={() => {
+          setRow(undefined);
+        }}
+        closable={false}
+      >
+        {row?.name && (
+          <ProDescriptions<UserInfo>
+            column={2}
+            title={row?.name}
+            request={async () => ({
+              data: row || {},
+            })}
+            params={{
+              id: row?.name,
+            }}
+            columns={columns}
+          />
+        )}
+      </Drawer>
+    </PageContainer>
+  );
+};
+
+export default UserList;
