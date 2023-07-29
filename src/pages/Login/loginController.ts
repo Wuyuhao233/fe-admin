@@ -1,14 +1,18 @@
 import loginService from '@/services/login';
 import { rsaTool } from '@/utils/rsaTool';
-
-interface LoginForm {
-  autoLogin: boolean;
-  captcha?: string;
-  mobile?: string;
-  password?: string;
-  name?: string;
+export interface LoginDTO {
+  autoLogin?: boolean;
+  name: string;
+  password: string;
+  publicKey: string;
 }
-
+export interface RegisterDTO {
+  confirmPassword?: string;
+  name: string;
+  password: string;
+  email: string;
+  code: string;
+}
 class LoginController {
   static instance: LoginController;
 
@@ -20,24 +24,11 @@ class LoginController {
     return this;
   }
 
-  async loginUser(loginInfo: LoginForm) {
-    const { autoLogin, captcha, mobile, name } = loginInfo;
-    if (name && loginInfo.password) {
-      const { rsaPassword, publicKey } =
-        await LoginController.instance.getPublicKey(loginInfo.password);
-      return await loginService.loginUser({
-        name,
-        password: rsaPassword,
-        publicKey,
-        autoLogin,
-      });
-    }
-
-    return await loginService.loginUser({
-      mobile,
-      captcha,
-      autoLogin,
-    });
+  async loginUser(loginInfo: LoginDTO) {
+    return await loginService.loginUser(loginInfo);
+  }
+  async registerUser(registerInfo: RegisterDTO) {
+    return await loginService.registerUser(registerInfo);
   }
   // 对密码进行加密
   async getPublicKey(password: string) {
@@ -47,6 +38,10 @@ class LoginController {
       rsaPassword,
       publicKey: data,
     };
+  }
+  // 获取email验证码
+  async getMailCaptcha(email: string) {
+    return await loginService.getMailCaptcha(email);
   }
 }
 

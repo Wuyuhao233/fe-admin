@@ -8,7 +8,7 @@ interface Http {
   ): Promise<ResponseMsg<T>>;
   post<T = any>(
     url: string,
-    params: Record<string, any>,
+    data: Record<string, any>,
   ): Promise<ResponseMsg<T>>;
   delete<T = any>(
     url: string,
@@ -18,8 +18,6 @@ interface Http {
 }
 export const http: Http = {
   get(url: string, params: Record<string, any>) {
-    console.log('go this way');
-
     return request(url, {
       method: 'GET',
       params,

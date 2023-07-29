@@ -6,7 +6,7 @@ import stores from '@/store';
 import { history, RequestConfig } from '@umijs/max';
 // @ts-ignore
 import { AxiosConfig } from '@/request/AxiosConfig';
-import { useAppSelector } from '@/store/hoos';
+import { useAppSelector } from '@/store/hooks';
 import { RunTimeLayoutConfig } from '@@/plugin-layout/types';
 import { createElement, useEffect } from 'react';
 import { Provider } from 'react-redux';
@@ -61,15 +61,13 @@ const CheckPermissions = ({
 }: {
   children: JSX.Element;
 }): JSX.Element => {
-  const { accessToken, refreshToken, userInfo } = useAppSelector(
-    (state) => state.auth,
-  );
+  const { accessToken } = useAppSelector((state) => state.auth);
   const { location } = history;
   useEffect(() => {
     if (!accessToken && location.pathname !== '/login') {
       history.push('/login');
     }
-  }, []);
+  }, [accessToken, location.pathname]);
   return children;
 };
 const RTKProvider = ({ children }: { children: JSX.Element }) => (

@@ -1,211 +1,244 @@
-import loginController from '@/pages/Login/loginController';
+import { LoginDTO, RegisterDTO } from '@/pages/Login/loginController';
 import { setAccessToken, setRefreshToken } from '@/store/auth';
-import { useAppDispatch } from '@/store/hoos';
+import { useAppDispatch } from '@/store/hooks';
+import { useNavigate } from '@@/exports';
 import {
-  AlipayOutlined,
-  LockOutlined,
-  MobileOutlined,
-  TaobaoOutlined,
-  UserOutlined,
-  WeiboOutlined,
-} from '@ant-design/icons';
-import {
-  LoginFormPage,
+  ProForm,
   ProFormCaptcha,
-  ProFormCheckbox,
+  ProFormInstance,
   ProFormText,
 } from '@ant-design/pro-components';
-import { useNavigate, useRequest } from '@umijs/max';
-import { Divider, Space, Spin, Tabs, message } from 'antd';
-import type { CSSProperties } from 'react';
+import { Button, Typography, message } from 'antd';
+import { debounce } from 'lodash';
+import { ChangeEventHandler, useRef, useState } from 'react';
 import './index.less';
-
-const iconStyles: CSSProperties = {
-  color: 'rgba(0, 0, 0, 0.2)',
-  fontSize: '28px',
-  verticalAlign: 'middle',
-  cursor: 'pointer',
+import loginController from './loginController';
+const { Link } = Typography;
+type IProFormText = React.ComponentProps<typeof ProFormText>;
+interface ValidProps {
+  disabled?: boolean;
+  validateStatus: 'success' | 'warning' | 'error' | 'validating' | '';
+  help?: string;
+}
+const { getMailCaptcha, loginUser, registerUser, getPublicKey } =
+  loginController;
+const inputStyles: IProFormText['fieldProps'] = {
+  size: 'large',
+  style: { borderRadius: '10px' },
 };
+type Rule = NonNullable<IProFormText['rules']>[number];
 
-export default () => {
+export default function Login() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const forRef = useRef<ProFormInstance>(); // 获取表单实例
+  // 登录和注册
+  const [authState, setAuthState] = useState<'login' | 'register'>('login');
 
-  const { run, loading } = useRequest(loginController.loginUser, {
-    manual: true,
-  });
-  // const count = useAppSelector((state: RootState) => state.test.count);
-  const login = async (form: any) => {
-    const { code, data, message: msg } = await run(form);
+  async function loginAction(values: LoginDTO) {
+    const { publicKey, rsaPassword } = await getPublicKey(values.password);
+    values.password = rsaPassword ? rsaPassword : values.password;
+    const { code, data, msg } = await loginUser({ ...values, publicKey });
     if (code === 200) {
-      message.success('登录成功！', 1, () => {
-        navigate('/');
+      message.success('登录成功', 1, () => {
+        if (typeof data === 'object') {
+          dispatch(setAccessToken(data.access_token));
+          dispatch(setRefreshToken(data.refresh_token));
+        }
+        navigate('/home');
       });
-      localStorage.setItem('access_token', data.access_token);
-      localStorage.setItem('refresh_token', data.refresh_token);
-      dispatch(setAccessToken(data.access_token));
-      dispatch(setRefreshToken(data.refresh_token));
     } else {
       message.error(msg);
     }
+  }
+  async function registerAction(values: RegisterDTO) {
+    delete values.confirmPassword;
+    const { code, msg } = await registerUser(values);
+    if (code === 200) {
+      message.success('注册成功,将返回登录页', 1, () => {
+        forRef.current?.resetFields();
+        setAuthState('login');
+      });
+    } else {
+      message.error(msg);
+    }
+  }
+
+  async function onFinish(values: any) {
+    if (authState === 'login') {
+      return await loginAction(values);
+    }
+    if (authState === 'register') {
+      return await registerAction(values);
+    }
+  }
+  // 邮箱验证码
+  const [captchaBtnDsb, setCaptchaBtnDsb] = useState<ValidProps>({
+    disabled: true,
+    validateStatus: '',
+  }); // 验证码按钮
+  const emailChange: ChangeEventHandler<HTMLInputElement> = debounce((e) => {
+    console.log('validating....');
+    const email = e.target.value;
+    // 验证邮箱格式
+    const reg = /^([a-zA-Z]|[0-9])(\w|-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/; // eslint-disable-line
+    if (reg.test(email)) {
+      setCaptchaBtnDsb({
+        disabled: false,
+        validateStatus: 'success',
+      });
+    } else {
+      setCaptchaBtnDsb({
+        disabled: true,
+        validateStatus: 'error',
+        help: '请输入正确的邮箱!',
+      });
+    }
+  }, 500);
+  const onGetCaptcha = async () => {
+    if (captchaBtnDsb.disabled) {
+      message.error('邮箱格式不正确');
+      return Promise.reject('邮箱格式不正确');
+    }
+    const { code, data } = await getMailCaptcha(
+      forRef.current?.getFieldValue('email'),
+    );
+    if (code === 200) {
+      message.success('验证码发送成功，请注意查收！');
+    } else {
+      message.error(data);
+    }
+  };
+  // 确认密码
+  const [confirmPwd, setConfirmPwd] = useState<ValidProps>({
+    validateStatus: '',
+    help: undefined,
+  });
+  const validatePwd: Rule = {
+    validator: async (_, value) => {
+      if (!value) {
+        setConfirmPwd({
+          validateStatus: 'error',
+          help: '请确认密码!',
+        });
+        return Promise.reject('请确认密码!');
+      }
+      if (value !== forRef.current?.getFieldValue('password')) {
+        setConfirmPwd({
+          validateStatus: 'error',
+          help: '两次输入的密码不匹配!',
+        });
+        return Promise.reject('两次输入的密码不匹配!');
+      }
+      setConfirmPwd({
+        validateStatus: 'success',
+        help: undefined,
+      });
+      return Promise.resolve();
+    },
   };
   return (
-    <Spin delay={2000} spinning={loading}>
-      <div id={'loginPage'}>
-        <LoginFormPage
-          backgroundImageUrl="https://gw.alipayobjects.com/zos/rmsportal/FfdJeJRQWjEeGTpqgBKj.png"
-          logo="https://github.githubassets.com/images/modules/logos_page/Octocat.png"
-          title="Huisman登录"
-          subTitle="您可靠的海工伙伴"
-          onFinish={login}
-          actions={
-            <div className={'loginPageActions'}>
-              <Divider plain>
-                <span
-                  className={'font-normal'}
-                  style={{ color: '#CCC', fontWeight: 'normal', fontSize: 14 }}
-                >
-                  其他登录方式
+    <div id="login" className={'full bg-[rgba(77,139,255,0.8)] relative'}>
+      <div className="loginForm absCenter bg-white w-[600px] p-16 rounded-2xl">
+        <ProForm
+          formRef={forRef}
+          // 只有一个提交按钮
+          submitter={{
+            render: () => [
+              <Button
+                className={'w-full mt-6 mb-3'}
+                style={{
+                  borderRadius: '10px',
+                  height: '50px',
+                }}
+                key="submit"
+                type="primary"
+                htmlType="submit"
+              >
+                <span className={'text-lg tracking-[30px]'}>
+                  {authState === 'login' ? '登录' : '注册'}
                 </span>
-              </Divider>
-              <Space align="center" size={24}>
-                <div
-                  className={
-                    'fcc w-[40] h-[40] border-[1px] border-[#D4D8DD] rounded-[50%]'
-                  }
-                >
-                  <AlipayOutlined style={{ ...iconStyles, color: '#1677FF' }} />
-                </div>
-                <div
-                  className={
-                    'fcc w-[40] h-[40] border-[1px] border-[#D4D8DD] rounded-[50%]'
-                  }
-                >
-                  <TaobaoOutlined style={{ ...iconStyles, color: '#FF6A10' }} />
-                </div>
-                <div
-                  className={
-                    'fcc w-[40] h-[40] border-[1px] border-[#D4D8DD] rounded-[50%]'
-                  }
-                >
-                  <WeiboOutlined style={{ ...iconStyles, color: '#333333' }} />
-                </div>
-              </Space>
-            </div>
-          }
+              </Button>,
+            ],
+          }}
+          onFinish={onFinish}
         >
-          <Tabs
-            centered
-            defaultActiveKey="account"
-            items={[
-              {
-                label: '账号密码登录',
-                key: 'account',
-                children: (
-                  <>
-                    <ProFormText
-                      name="name"
-                      fieldProps={{
-                        size: 'large',
-                        prefix: <UserOutlined className={'prefixIcon'} />,
-                      }}
-                      placeholder={'用户名'}
-                      rules={[
-                        {
-                          required: true,
-                          message: '请输入用户名!',
-                        },
-                      ]}
-                    />
-                    <ProFormText.Password
-                      name="password"
-                      fieldProps={{
-                        size: 'large',
-                        prefix: <LockOutlined className={'prefixIcon'} />,
-                      }}
-                      placeholder={'密码'}
-                      rules={[
-                        {
-                          required: true,
-                          message: '请输入密码！',
-                        },
-                      ]}
-                    />
-                  </>
-                ),
-              }, // 务必填写 key
-              {
-                label: '手机号登录',
-                key: 'mobile',
-                children: (
-                  <>
-                    <ProFormText
-                      fieldProps={{
-                        size: 'large',
-                        prefix: <MobileOutlined className={'prefixIcon'} />,
-                      }}
-                      name="mobile"
-                      placeholder={'手机号'}
-                      rules={[
-                        {
-                          required: true,
-                          message: '请输入手机号！',
-                        },
-                        {
-                          pattern: /^1\d{10}$/,
-                          message: '手机号格式错误！',
-                        },
-                      ]}
-                    />
-                    <ProFormCaptcha
-                      fieldProps={{
-                        size: 'large',
-                        prefix: <LockOutlined className={'prefixIcon'} />,
-                      }}
-                      captchaProps={{
-                        size: 'large',
-                      }}
-                      placeholder={'请输入验证码'}
-                      captchaTextRender={(timing, count) => {
-                        if (timing) {
-                          return `${count} ${'获取验证码'}`;
-                        }
-                        return '获取验证码';
-                      }}
-                      name="captcha"
-                      rules={[
-                        {
-                          required: true,
-                          message: '请输入验证码！',
-                        },
-                      ]}
-                      onGetCaptcha={async () => {
-                        message.success('获取验证码成功！验证码为：1234');
-                      }}
-                    />
-                  </>
-                ),
-              },
-            ]}
-          ></Tabs>
-          <div
-            style={{
-              marginBlockEnd: 24,
-            }}
-          >
-            <ProFormCheckbox noStyle name="autoLogin">
-              自动登录
-            </ProFormCheckbox>
-            <a
-              style={{
-                float: 'right',
-              }}
-            >
-              忘记密码
-            </a>
+          <ProFormText
+            fieldProps={inputStyles}
+            name={'name'}
+            label={'用户名'}
+            placeholder={'请输入用户名'}
+          />
+          <ProFormText.Password
+            fieldProps={inputStyles}
+            name={'password'}
+            label={'密码'}
+            placeholder={'请输入密码'}
+          />
+          {authState === 'register' && (
+            <>
+              <ProFormText.Password
+                fieldProps={inputStyles}
+                name={'confirmPassword'}
+                dependencies={['password']}
+                label={'确认密码'}
+                hasFeedback
+                validateStatus={confirmPwd.validateStatus}
+                help={confirmPwd.help}
+                rules={[validatePwd]}
+              />
+              <ProFormCaptcha
+                allowClear={true}
+                fieldProps={inputStyles}
+                name={'email'}
+                style={{ borderRadius: '10px' }}
+                className={'test'}
+                label={'邮箱'}
+                hasFeedback
+                validateStatus={captchaBtnDsb.validateStatus}
+                help={captchaBtnDsb.help}
+                onGetCaptcha={onGetCaptcha}
+                captchaTextRender={(timing, count) => {
+                  if (timing) {
+                    return `${count}s 获取验证码`;
+                  }
+                  return '获取验证码';
+                }}
+                countDown={60}
+                captchaProps={{
+                  // 需要验证邮箱格式
+                  size: 'large',
+                  style: { borderRadius: '10px' },
+                }}
+                placeholder={'请输入邮箱'}
+                onChange={emailChange}
+              />
+              <ProFormText
+                fieldProps={inputStyles}
+                name={'code'}
+                label={'验证码'}
+                placeholder={'请输入验证码'}
+              />
+            </>
+          )}
+          {authState === 'login' && (
+            <div>
+              忘记密码？<Link>点击重置</Link>
+            </div>
+          )}
+        </ProForm>
+        {authState === 'login' ? (
+          <div>
+            没有账号？
+            <Link onClick={() => setAuthState('register')}>点击注册</Link>
           </div>
-        </LoginFormPage>
+        ) : (
+          <div>
+            已有账号？
+            <Link onClick={() => setAuthState('login')}>点击登录</Link>
+          </div>
+        )}
       </div>
-    </Spin>
+    </div>
   );
-};
+}

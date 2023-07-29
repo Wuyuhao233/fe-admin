@@ -1,10 +1,10 @@
 export interface ResponseMsg<T> {
   success: boolean;
-  message: string;
+  msg: string;
   code: number;
   timestamp: number;
   totalRecords?: number;
-  data: T;
+  data: T | string;
 }
 export interface PageInfo {
   pageSize: number;

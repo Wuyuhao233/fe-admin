@@ -29,7 +29,7 @@ export class AxiosConfig {
       config.headers.Authorization =
         'Bearer ' + localStorage.getItem('access_token');
     }
-
+    // 重新发送不需要加前缀
     if (!config.url.startsWith(PREFIX)) {
       config.url = PREFIX + config.url;
     }

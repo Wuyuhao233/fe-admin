@@ -14,6 +14,9 @@ dependencies:
   '@reduxjs/toolkit':
     specifier: ^1.9.5
     version: 1.9.5(react-redux@8.1.1)(react@18.2.0)
+  '@types/lodash':
+    specifier: ^4.14.196
+    version: 4.14.196
   '@types/react-redux':
     specifier: ^7.1.25
     version: 7.1.25
@@ -29,6 +32,9 @@ dependencies:
   jsencrypt:
     specifier: ^3.3.2
     version: 3.3.2
+  lodash:
+    specifier: ^4.17.21
+    version: 4.17.21
   react-redux:
     specifier: ^8.1.1
     version: 8.1.1(@types/react-dom@18.2.4)(@types/react@18.2.7)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)
@@ -3031,6 +3037,10 @@ packages:
 
   /@types/json-schema@7.0.12:
     resolution: {integrity: sha512-Hr5Jfhc9eYOQNPYO5WLDq/n4jqijdHNlDXjuAQkkt+mWdQR+XJToOHrsD4cPaMXpn6KO7y2+wM8AZEs8VpBLVA==}
+    dev: false
+
+  /@types/lodash@4.14.196:
+    resolution: {integrity: sha512-22y3o88f4a94mKljsZcanlNWPzO0uBsBdzLAngf2tp533LzZcQzb6+eZPJ+vCTt+bqF2XnvT9gejTLsAcJAJyQ==}
     dev: false
 
   /@types/minimist@1.2.2:
