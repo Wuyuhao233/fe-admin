@@ -14,7 +14,7 @@ interface Http {
     url: string,
     params: Record<string, any>,
   ): Promise<ResponseMsg<T>>;
-  common<T = any>(config: RequestConfig): Promise<T>;
+  common(config: RequestConfig): any;
 }
 export const http: Http = {
   get(url: string, params: Record<string, any>) {
@@ -41,6 +41,8 @@ export const http: Http = {
     return request(url, {
       ...rest,
       method: method.toUpperCase() || 'GET',
+      // 多次走request的逻辑，会取多次的data，所以这里需要返回最初始的响应
+      getResponse: true,
     });
   },
 };

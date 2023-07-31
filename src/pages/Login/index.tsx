@@ -1,6 +1,4 @@
 import { LoginDTO, RegisterDTO } from '@/pages/Login/loginController';
-import { setAccessToken, setRefreshToken } from '@/store/auth';
-import { useAppDispatch } from '@/store/hooks';
 import { useNavigate } from '@@/exports';
 import {
   ProForm,
@@ -30,7 +28,6 @@ type Rule = NonNullable<IProFormText['rules']>[number];
 
 export default function Login() {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const forRef = useRef<ProFormInstance>(); // 获取表单实例
   // 登录和注册
   const [authState, setAuthState] = useState<'login' | 'register'>('login');
@@ -42,8 +39,8 @@ export default function Login() {
     if (code === 200) {
       message.success('登录成功', 1, () => {
         if (typeof data === 'object') {
-          dispatch(setAccessToken(data.access_token));
-          dispatch(setRefreshToken(data.refresh_token));
+          localStorage.setItem('access_token', data.access_token);
+          localStorage.setItem('refresh_token', data.refresh_token);
         }
         navigate('/home');
       });

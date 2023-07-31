@@ -6,7 +6,6 @@ import stores from '@/store';
 import { history, RequestConfig } from '@umijs/max';
 // @ts-ignore
 import { AxiosConfig } from '@/request/AxiosConfig';
-import { useAppSelector } from '@/store/hooks';
 import { RunTimeLayoutConfig } from '@@/plugin-layout/types';
 import { createElement, useEffect } from 'react';
 import { Provider } from 'react-redux';
@@ -61,7 +60,7 @@ const CheckPermissions = ({
 }: {
   children: JSX.Element;
 }): JSX.Element => {
-  const { accessToken } = useAppSelector((state) => state.auth);
+  const accessToken = localStorage.getItem('access_token') || '';
   const { location } = history;
   useEffect(() => {
     if (!accessToken && location.pathname !== '/login') {

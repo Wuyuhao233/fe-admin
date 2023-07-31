@@ -31,6 +31,7 @@ export class AxiosConfig {
     }
     // 重新发送不需要加前缀
     if (!config.url.startsWith(PREFIX)) {
+      console.log('add prefix', config.url);
       config.url = PREFIX + config.url;
     }
     return { ...config };
@@ -85,10 +86,10 @@ export class AxiosConfig {
         Array(AxiosConfig.queue.length)
           .fill(0)
           .forEach(() => {
-            console.log('forEach', AxiosConfig.queue);
             const req = AxiosConfig.queue.shift();
             if (req) {
               const { config, resolve, type } = req;
+              console.log('resend...', req);
               if (type === 'response') {
                 http.common(config).then((res) => {
                   console.log('resolve...', res);

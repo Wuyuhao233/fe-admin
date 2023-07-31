@@ -28,9 +28,9 @@ export default defineConfig({
       component: './Access',
     },
     {
-      name: ' CRUD 示例',
-      path: '/table',
-      component: './Table',
+      name: ' 用户管理',
+      path: '/user',
+      component: './User',
     },
     // 非菜单路由
     {
