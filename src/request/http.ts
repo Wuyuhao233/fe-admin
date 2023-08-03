@@ -9,6 +9,7 @@ interface Http {
   post<T = any>(
     url: string,
     data: Record<string, any>,
+    config?: Omit<RequestConfig, 'Data'>,
   ): Promise<ResponseMsg<T>>;
   delete<T = any>(
     url: string,
@@ -23,10 +24,11 @@ export const http: Http = {
       params,
     });
   },
-  post(url: string, data: Record<string, any>) {
+  post(url: string, data: Record<string, any>, config?: RequestConfig) {
     return request(url, {
       method: 'POST',
       data,
+      ...config,
     });
   },
   delete(url: string, params: Record<string, any>) {

@@ -5,8 +5,8 @@ interface Flag {
   type: 'success' | 'error';
   msg: string;
 }
-export const useReqWithMsg = <T>(
-  req: (params: any) => Promise<T>,
+export const useReqWithMsg = <T, I extends any>(
+  req: (params: I) => Promise<T>,
   reload?: () => any,
 ) => {
   const [flag, setFlag] = useState<Flag>({ type: 'success', msg: '' });
@@ -20,16 +20,15 @@ export const useReqWithMsg = <T>(
     onSuccess: (res) => {
       console.log('onSuccess', res);
       if (res.code === 200) {
-        setFlag({ type: 'success', msg: res.message });
+        setFlag({ type: 'success', msg: res.msg || '成功' });
         reload?.();
       } else {
-        setFlag({ type: 'error', msg: res.message });
+        setFlag({ type: 'error', msg: res.msg || '失败' });
       }
     },
     onError: (err) => {
       console.log('onError', err);
-
-      setFlag({ type: 'error', msg: err.message });
+      setFlag({ type: 'error', msg: '出错啦' });
     },
   });
 };

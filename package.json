@@ -11,7 +11,7 @@
     "start": "npm run dev"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.1.4",
+    "@ant-design/icons": "4.8.0",
     "@ant-design/pro-components": "^2.5.4",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/lodash": "^4.14.196",
@@ -25,6 +25,7 @@
     "redux-persist": "^6.0.0"
   },
   "devDependencies": {
+    "@iconify-json/ant-design": "1.1.7",
     "@types/react": "^18.2.7",
     "@types/react-dom": "^18.2.4",
     "@types/redux-persist": "^4.3.1",

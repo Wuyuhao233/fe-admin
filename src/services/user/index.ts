@@ -1,4 +1,4 @@
-import { UserInfo } from '@/pages/User/userController';
+import { UserInfo } from '@/pages/User/controller/userController';
 import { http } from '@/request/http';
 
 const userService = {

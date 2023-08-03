@@ -80,7 +80,7 @@ const RTKProvider = ({ children }: { children: JSX.Element }) => (
  * 修改交给 react-dom 渲染时的根组件。
  * args 包含：
  *
- * routes，全量路由配置
+ * routes.ts，全量路由配置
  * plugin，运行时插件机制
  * history，history 实例
  */

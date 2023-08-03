@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@ant-design/icons':
-    specifier: ^5.1.4
-    version: 5.1.4(react-dom@18.2.0)(react@18.2.0)
+    specifier: 4.8.0
+    version: 4.8.0(react-dom@18.2.0)(react@18.2.0)
   '@ant-design/pro-components':
     specifier: ^2.5.4
     version: 2.5.4(antd@4.24.10)(rc-field-form@1.32.0)(react-dom@18.2.0)(react@18.2.0)
@@ -43,6 +43,9 @@ dependencies:
     version: 6.0.0(react@18.2.0)(redux@4.2.1)
 
 devDependencies:
+  '@iconify-json/ant-design':
+    specifier: 1.1.7
+    version: 1.1.7
   '@types/react':
     specifier: ^18.2.7
     version: 18.2.7
@@ -2464,9 +2467,14 @@ packages:
   /@humanwhocodes/object-schema@1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
 
+  /@iconify-json/ant-design@1.1.7:
+    resolution: {integrity: sha512-/ZYrtkIIQ2jk69f8V/b8p/NY87e3nnXteirtqso6/96vIJNvHTb/wT6DfnD088rqk9cYlWNmNCtujjVztlYwFw==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
   /@iconify/types@2.0.0:
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
-    dev: false
 
   /@iconify/utils@2.1.1:
     resolution: {integrity: sha512-H8xz74JDzDw8f0qLxwIaxFMnFkbXTZNWEufOk3WxaLFHV4h0A2FjIDgNk5LzC0am4jssnjdeJJdRs3UFu3582Q==}

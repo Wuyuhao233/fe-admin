@@ -1,4 +1,4 @@
-import { NO_NEED_TOKEN_URL, PREFIX } from '@/constants';
+import { NO_NEED_TOKEN_URL, PREFIX } from '@/config/constants';
 import { http } from '@/request/http';
 import { history } from '@umijs/max';
 import { message } from 'antd';
@@ -79,6 +79,11 @@ export class AxiosConfig {
       .then((res) => {
         if (res.code === 200) {
           localStorage.setItem('access_token', res.data);
+        } else {
+          message.error('登录已过期，请重新登录').then(() => {
+            history.push('/login');
+            AxiosConfig.queue.length = 0;
+          });
         }
       })
       .finally(() => {
@@ -91,7 +96,7 @@ export class AxiosConfig {
               const { config, resolve, type } = req;
               console.log('resend...', req);
               if (type === 'response') {
-                http.common(config).then((res) => {
+                http.common(config).then((res: any) => {
                   console.log('resolve...', res);
                   resolve(res);
                 });
