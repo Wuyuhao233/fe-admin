@@ -1,9 +1,10 @@
 import { MyButton } from '@/components/Button';
+import ItemUpload from '@/components/CusFormItem/ItemUpload';
 import { noSizeInputStyles } from '@/config/styles';
+import { User } from '@/declare/User';
 import { useReqWithMsg } from '@/hooks/useReqWithMsg';
-import userController, {
-  UserInfo,
-} from '@/pages/User/controller/userController';
+import loginController, { RegisterDTO } from '@/pages/Login/loginController';
+import userController from '@/pages/User/controller/userController';
 import { PlusOutlined } from '@ant-design/icons';
 import {
   ActionType,
@@ -11,20 +12,27 @@ import {
   PageContainer,
   ProDescriptions,
   ProDescriptionsItemProps,
+  ProFormCaptcha,
+  ProFormInstance,
   ProTable,
 } from '@ant-design/pro-components';
 import { Button, Divider, Drawer, Typography, message } from 'antd';
-import React, { useRef, useState } from 'react';
+import { debounce } from 'lodash';
+import React, { ChangeEventHandler, useRef, useState } from 'react';
 import CreateForm from './components/CreateForm';
-
+interface ValidProps {
+  disabled?: boolean;
+  validateStatus: 'success' | 'warning' | 'error' | 'validating' | '';
+  help?: string;
+}
 const { queryUserList, deleteUser, modifyUser } = userController;
 const { Link } = Typography;
-
+const { getMailCaptcha, registerUser } = loginController;
 /**
  *  删除节点
  * @param selectedRows
  */
-const handleRemove = async (selectedRows: UserInfo[]) => {
+const handleRemove = async (selectedRows: User[]) => {
   const hide = message.loading('正在删除');
   if (!selectedRows) return true;
   try {
@@ -42,9 +50,9 @@ const handleRemove = async (selectedRows: UserInfo[]) => {
 const UserList: React.FC<unknown> = () => {
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
-  const [row, setRow] = useState<UserInfo>();
-  const [selectedRowsState, setSelectedRows] = useState<UserInfo[]>([]);
-
+  const [row, setRow] = useState<User>();
+  const [selectedRowsState, setSelectedRows] = useState<User[]>([]);
+  const forRef = useRef<ProFormInstance>(); // 获取表单实例
   const { run: deleteUserById } = useReqWithMsg(
     deleteUser,
     actionRef.current?.reload,
@@ -54,12 +62,50 @@ const UserList: React.FC<unknown> = () => {
     actionRef.current?.reload,
   );
   // 编辑表单的初始化
-  const [editFormValues, setEditFormValues] = useState<UserInfo>();
+  const [editFormValues, setEditFormValues] = useState<User>();
+  const [editType, setEditType] = useState<'add' | 'edit'>('add');
   function closeModal() {
     handleModalVisible(false);
     setEditFormValues(undefined);
   }
-  const columns: ProDescriptionsItemProps<UserInfo>[] = [
+  // 邮箱验证码
+  const [captchaBtnDsb, setCaptchaBtnDsb] = useState<ValidProps>({
+    disabled: true,
+    validateStatus: '',
+  });
+  const emailChange: ChangeEventHandler<HTMLInputElement> = debounce((e) => {
+    console.log('validating....');
+    const email = e.target.value;
+    // 验证邮箱格式
+    const reg = /^([a-zA-Z]|[0-9])(\w|-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/; // eslint-disable-line
+    if (reg.test(email)) {
+      setCaptchaBtnDsb({
+        disabled: false,
+        validateStatus: 'success',
+      });
+    } else {
+      setCaptchaBtnDsb({
+        disabled: true,
+        validateStatus: 'error',
+        help: '请输入正确的邮箱!',
+      });
+    }
+  }, 500);
+  const onGetCaptcha = async () => {
+    if (captchaBtnDsb.disabled) {
+      message.error('邮箱格式不正确');
+      return Promise.reject('邮箱格式不正确');
+    }
+    const { code, data } = await getMailCaptcha(
+      forRef.current?.getFieldValue('email'),
+    );
+    if (code === 200) {
+      message.success('验证码发送成功，请注意查收！');
+    } else {
+      message.error(data);
+    }
+  };
+  const columns: ProDescriptionsItemProps<User>[] = [
     {
       title: 'id',
       dataIndex: 'id',
@@ -69,9 +115,24 @@ const UserList: React.FC<unknown> = () => {
       hideInSearch: true,
     },
     {
+      title: '头像',
+      dataIndex: 'avatar',
+      valueType: 'avatar',
+      hideInSearch: true,
+      hideInTable: true,
+      hideInDescriptions: true,
+      renderFormItem: () => {
+        return <ItemUpload />;
+      },
+    },
+    {
       title: '用户名',
       dataIndex: 'name',
       valueType: 'text',
+    },
+    {
+      title: '昵称',
+      dataIndex: 'nickName',
       // 增删改的表单配置
       formItemProps: {
         rules: [
@@ -83,31 +144,84 @@ const UserList: React.FC<unknown> = () => {
       },
     },
     {
-      title: '昵称',
-      dataIndex: 'nickName',
-    },
-    {
       title: '性别',
       dataIndex: 'gender',
       valueType: 'select',
       hideInSearch: true,
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '性别为必填项',
+          },
+        ],
+      },
       // hideInForm: true,
       valueEnum: {
         '1': { text: '男' },
         '2': { text: '女' },
         '3': { text: '其他', status: 'other' },
       },
-      formItemProps: {},
     },
     {
       title: '手机号',
       dataIndex: 'phone',
       valueType: 'text',
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '手机号为必填项',
+          },
+        ],
+      },
     },
     {
       title: '邮箱',
       dataIndex: 'email',
       valueType: 'text',
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '邮箱为必填项',
+          },
+        ],
+        style: {
+          height: '32px',
+        },
+      },
+      renderFormItem: () => {
+        return (
+          <ProFormCaptcha
+            allowClear={true}
+            name={'email'}
+            className={'test'}
+            hasFeedback
+            validateStatus={captchaBtnDsb.validateStatus}
+            help={captchaBtnDsb.help}
+            onGetCaptcha={onGetCaptcha}
+            captchaTextRender={(timing, count) => {
+              if (timing) {
+                return `${count}s 后可重新获取`;
+              }
+              return '获取验证码';
+            }}
+            countDown={60}
+            placeholder={'请输入邮箱'}
+            onChange={emailChange}
+          />
+        );
+      },
+    },
+    {
+      title: '验证码',
+      key: 'code',
+      hideInTable: true,
+      dataIndex: 'code',
+      valueType: 'text',
+      hideInSearch: true,
+      hideInDescriptions: true,
     },
     {
       title: '角色',
@@ -159,7 +273,7 @@ const UserList: React.FC<unknown> = () => {
         title: '用户管理',
       }}
     >
-      <ProTable<UserInfo>
+      <ProTable<User>
         actionRef={actionRef}
         rowKey="id"
         // note 搜索设置
@@ -172,7 +286,14 @@ const UserList: React.FC<unknown> = () => {
         // note 为false时，不显示工具栏
         options={false}
         toolBarRender={() => [
-          <MyButton key={'add'}>
+          <MyButton
+            key={'add'}
+            onClick={() => {
+              handleModalVisible(true);
+              setEditFormValues(undefined);
+              setEditType('add');
+            }}
+          >
             <PlusOutlined className={'!text-sm'} />
             新建
           </MyButton>,
@@ -216,11 +337,21 @@ const UserList: React.FC<unknown> = () => {
         onCancel={() => handleModalVisible(false)}
         modalVisible={createModalVisible}
       >
-        <ProTable<UserInfo, UserInfo>
+        <ProTable<User, RegisterDTO | User>
           loading={updateLoading}
+          formRef={forRef}
           onSubmit={async (value) => {
-            value.id = editFormValues?.id as number;
-            await updateUser(value);
+            console.log('value', value);
+            console.log(forRef.current?.getFieldsValue());
+            if (editType === 'add') {
+              await registerUser(value as RegisterDTO);
+            }
+            if (editType === 'edit') {
+              if ('id' in value) {
+                value.id = editFormValues?.id as User['id'];
+              }
+              await updateUser(value as User);
+            }
             closeModal();
           }}
           rowKey="id"
@@ -242,7 +373,7 @@ const UserList: React.FC<unknown> = () => {
         closable={false}
       >
         {row?.name && (
-          <ProDescriptions<UserInfo>
+          <ProDescriptions<User>
             column={2}
             title={row?.name}
             request={async () => ({

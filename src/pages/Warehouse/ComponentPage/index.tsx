@@ -46,8 +46,7 @@ const ComponentPage: React.FC<unknown> = () => {
 
   // 编辑表单的初始化
   const [editFormValues, setEditFormValues] = useState<IComponent>();
-  const { files, run } = useUpload();
-  console.log('files', files);
+  const { run } = useUpload();
 
   function closeModal() {
     handleModalVisible(false);

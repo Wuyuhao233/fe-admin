@@ -1,18 +1,6 @@
+import { User } from '@/declare/User';
 import { PageInfo } from '@/services/type';
 import userService from '@/services/user';
-export interface UserInfo {
-  id: number;
-  roles?: Array<string>;
-  name?: string;
-  openId?: string;
-  nickname?: string;
-  avatar?: string;
-  gender?: number | string;
-  phone?: string;
-  email?: string;
-  createTime: number;
-  updateTime: number;
-}
 class UserController {
   static instance: UserController;
 
@@ -24,19 +12,15 @@ class UserController {
     return this;
   }
 
-  async addUser(user: UserInfo) {
-    return await userService.addUser(user);
-  }
-
   async queryUserList(pageInfo: PageInfo) {
-    return await userService.getUserList<UserInfo[]>(pageInfo);
+    return await userService.getUserList<User[]>(pageInfo);
   }
 
   async deleteUser(id: number | string) {
     return await userService.deleteUser(Number(id));
   }
 
-  async modifyUser(user: UserInfo) {
+  async modifyUser(user: User) {
     return await userService.updateUser(user);
   }
 }

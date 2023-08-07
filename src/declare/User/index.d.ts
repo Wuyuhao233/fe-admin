@@ -1,6 +1,13 @@
 export interface User {
   id: string;
-  name: string;
-  avatar: string;
-  [key: string]: any;
+  roles?: Array<string>;
+  name?: string;
+  openId?: string;
+  nickname?: string;
+  avatar?: string;
+  gender?: number | string;
+  phone?: string;
+  email?: string;
+  createTime: number;
+  updateTime: number;
 }
