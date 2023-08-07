@@ -1,4 +1,5 @@
 import { IBase, IBaseDto } from '@/declare';
+import { UploadFile } from 'antd/lib/upload/interface';
 
 export interface IComponent extends IBase {
   name: string;
@@ -8,12 +9,20 @@ export interface IComponent extends IBase {
   width: number;
   length: number;
   status: number;
-  attachment: IFile[];
-  module: IModule;
+  attachment: IFile[] | RCF;
+  module?: IModule;
   series: ISeries;
+  // 方便进行编辑
+  moduleId?: string;
+  seriesId?: string;
+  size?: string;
 }
 export interface IComponentDto extends IBaseDto {
   name?: string;
+}
+interface RCF {
+  fileList: UploadFile[];
+  file: File;
 }
 export interface IFile extends IBase {
   fileName: string;

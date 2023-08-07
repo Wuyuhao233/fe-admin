@@ -5,6 +5,8 @@
 import stores from '@/store';
 import { history, RequestConfig } from '@umijs/max';
 // @ts-ignore
+import RightAvatar from '@/components/RightAvartar';
+import InitialComponent from '@/InitialComponent';
 import { AxiosConfig } from '@/request/AxiosConfig';
 import { RunTimeLayoutConfig } from '@@/plugin-layout/types';
 import { createElement, useEffect } from 'react';
@@ -22,10 +24,12 @@ export async function getInitialState(): Promise<{
 
 export const layout: RunTimeLayoutConfig = () => {
   return {
+    layout: 'mix',
     logo: 'https://img.alicdn.com/tfs/TB1YHEpwUT1gK0jSZFhXXaAtVXa-28-27.svg',
     menu: {
       locale: false,
     },
+    rightContentRender: (headerProps, dom, props) => <RightAvatar {...props} />,
     noFound: <div>not found page</div>,
     unAccessible: <div>no access</div>,
   };
@@ -72,7 +76,9 @@ const CheckPermissions = ({
 const RTKProvider = ({ children }: { children: JSX.Element }) => (
   <Provider store={stores.store}>
     <PersistGate loading={null} persistor={stores.persistor}>
-      <CheckPermissions>{children}</CheckPermissions>
+      <InitialComponent>
+        <CheckPermissions>{children}</CheckPermissions>
+      </InitialComponent>
     </PersistGate>
   </Provider>
 );

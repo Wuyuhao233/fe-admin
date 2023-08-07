@@ -4,20 +4,43 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff6158f4-7083-4782-b669-832e86896240" name="变更" comment="feat: finish login&amp;register page">
+    <list default="true" id="ff6158f4-7083-4782-b669-832e86896240" name="变更" comment="feat: save">
+      <change afterPath="$PROJECT_DIR$/src/InitialComponent.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Button/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/RightAvartar/index.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/RightAvartar/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/config/styles.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/declare/User/index.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/declare/utils/index.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/initial.controller.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Personal/Profile/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/User/Permission/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/User/Role/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/User/components/CreateForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/User/components/UpdateForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/User/controller/Role.controller.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/User/controller/userController.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/User/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Warehouse/ComponentPage/component.controller.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Warehouse/ComponentPage/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Warehouse/series/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Warehouse/series/series.controller.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.umirc.ts" beforeDir="false" afterPath="$PROJECT_DIR$/.umirc.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/declare/warehouse/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/declare/warehouse/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/global.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/global.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useUpload.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useUpload.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Home/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Login/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Login/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Table/components/CreateForm.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Table/components/UpdateForm.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Table/index.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Table/userController.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/request/AxiosConfig.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/request/AxiosConfig.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/request/http.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/request/http.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/type.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/type.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/user/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/user/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Test/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Test/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/store/auth/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/auth/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/tools.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/tools.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.css" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,16 +92,28 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="ReactDesignerToolWindowState">
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.haulmont.rcb.reactComponents" value="false" />
+        <entry key="com.haulmont.rcb.reactInspector" value="false" />
+        <entry key="com.haulmont.rcb.storybook" value="false" />
+      </map>
+    </option>
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\emos_admin\src\pages" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\emos_admin\src\pages\Warehouse\ComponentPage" />
+      <recent name="E:\emos_admin\src\pages\Warehouse" />
+      <recent name="E:\emos_admin\src\pages\Warehouse\controllers" />
+      <recent name="E:\emos_admin\src\pages\User\controller" />
       <recent name="E:\emos_admin\src\services\login" />
-      <recent name="E:\emos_admin\src\pages\Login" />
-      <recent name="C:\Users\Administrator\Desktop\myUmi\src\services\userControllers" />
-      <recent name="C:\Users\Administrator\Desktop\myUmi\src\services\loginControllers" />
-      <recent name="C:\Users\Administrator\Desktop\myUmi\src\services" />
+    </key>
+    <key name="es6.move.members.recent.items">
+      <recent name="E:\emos_admin\src\declare\index.d.ts" />
     </key>
   </component>
   <component name="RunManager">
@@ -138,6 +173,13 @@
       <workItem from="1690244517366" duration="622000" />
       <workItem from="1690505475321" duration="7087000" />
       <workItem from="1690590132245" duration="20379000" />
+      <workItem from="1690764006261" duration="12628000" />
+      <workItem from="1690848419594" duration="11361000" />
+      <workItem from="1690935979582" duration="16179000" />
+      <workItem from="1691021445028" duration="25228000" />
+      <workItem from="1691107636981" duration="22756000" />
+      <workItem from="1691196313411" duration="18972000" />
+      <workItem from="1691367482790" duration="1913000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 添加Dockerfile">
       <option name="closed" value="true" />
@@ -187,7 +229,23 @@
       <option name="project" value="LOCAL" />
       <updated>1690620524524</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="feat: token刷新，需要返回初始的响应">
+      <option name="closed" value="true" />
+      <created>1690764091486</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1690764091486</updated>
+    </task>
+    <task id="LOCAL-00008" summary="feat: 完成上传服务">
+      <option name="closed" value="true" />
+      <created>1691073916085</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1691073916085</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,6 +267,9 @@
     <MESSAGE value="feat: 修改docker-publish" />
     <MESSAGE value="feat: 修改docker登录信息" />
     <MESSAGE value="feat: finish login&amp;register page" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: finish login&amp;register page" />
+    <MESSAGE value="feat: token刷新，需要返回初始的响应" />
+    <MESSAGE value="feat: 完成上传服务" />
+    <MESSAGE value="feat: save" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: save" />
   </component>
 </project>

@@ -21,7 +21,6 @@ export const routes: IRoutes[] = [
     routes: [
       {
         name: '用户列表',
-        index: true,
         path: 'list',
         component: './User/index.tsx',
       },
@@ -50,6 +49,17 @@ export const routes: IRoutes[] = [
         name: '类别管理',
         path: 'series',
         component: './Warehouse/series/index.tsx',
+      },
+    ],
+  },
+  {
+    name: '个人中心',
+    path: '/personal',
+    routes: [
+      {
+        name: '修改资料',
+        path: 'profile',
+        component: './Personal/Profile/index.tsx',
       },
     ],
   },

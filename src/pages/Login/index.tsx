@@ -1,4 +1,7 @@
+import { inputStyles } from '@/config/styles';
 import { LoginDTO, RegisterDTO } from '@/pages/Login/loginController';
+import { setAccessToken, setRefreshToken } from '@/store/auth';
+import { useAppDispatch } from '@/store/hooks';
 import { useNavigate } from '@@/exports';
 import {
   ProForm,
@@ -20,14 +23,13 @@ interface ValidProps {
 }
 const { getMailCaptcha, loginUser, registerUser, getPublicKey } =
   loginController;
-const inputStyles: IProFormText['fieldProps'] = {
-  size: 'large',
-  style: { borderRadius: '10px' },
-};
+
 type Rule = NonNullable<IProFormText['rules']>[number];
 
 export default function Login() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   const forRef = useRef<ProFormInstance>(); // 获取表单实例
   // 登录和注册
   const [authState, setAuthState] = useState<'login' | 'register'>('login');
@@ -39,8 +41,11 @@ export default function Login() {
     if (code === 200) {
       message.success('登录成功', 1, () => {
         if (typeof data === 'object') {
+          // note 这里确实比较麻烦，但是不知道怎么解决
           localStorage.setItem('access_token', data.access_token);
           localStorage.setItem('refresh_token', data.refresh_token);
+          dispatch(setRefreshToken(data.refresh_token));
+          dispatch(setAccessToken(data.access_token));
         }
         navigate('/home');
       });

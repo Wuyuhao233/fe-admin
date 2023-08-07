@@ -1,3 +1,5 @@
+import { PlusOutlined } from '@ant-design/icons';
+
 let Test: React.FC = () => {
   return (
     <div className={' fcr w-screen h-screen'}>
@@ -6,7 +8,7 @@ let Test: React.FC = () => {
           'w-1/4 h-1/4 border-2 border-blue-100 border-solid font-normal'
         }
       >
-        Test
+        <PlusOutlined />
       </h1>
     </div>
   );
