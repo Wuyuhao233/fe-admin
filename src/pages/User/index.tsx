@@ -126,10 +126,9 @@ const UserList: React.FC<unknown> = () => {
     {
       title: '头像',
       dataIndex: 'avatar',
+      key: 'avatar',
       valueType: 'avatar',
       hideInSearch: true,
-      hideInTable: true,
-      hideInDescriptions: true,
       renderFormItem: () => {
         return <ItemUpload />;
       },
@@ -200,6 +199,7 @@ const UserList: React.FC<unknown> = () => {
           height: '32px',
         },
       },
+      hideInForm: editType === 'edit',
       renderFormItem: () => {
         return (
           <ProFormCaptcha
@@ -231,6 +231,15 @@ const UserList: React.FC<unknown> = () => {
       valueType: 'text',
       hideInSearch: true,
       hideInDescriptions: true,
+      hideInForm: editType === 'edit',
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '验证码为必填项',
+          },
+        ],
+      },
     },
     {
       title: '角色',
@@ -259,8 +268,15 @@ const UserList: React.FC<unknown> = () => {
             onClick={() => {
               handleModalVisible(true);
               // note 由于表单的性别是select，所以需要转换一下,设置为字符串
-              record.gender = String(record.gender);
-              setEditFormValues(record);
+              // record.gender = String(record.gender);
+              // note 照片有修改就传，没有就不传,直接修改会影响显示
+              // record.avatar = undefined;
+              setEditFormValues({
+                ...record,
+                gender: String(record.gender),
+                avatar: undefined,
+              });
+              setEditType('edit');
             }}
           >
             编辑
@@ -355,9 +371,7 @@ const UserList: React.FC<unknown> = () => {
               await register(value as RegisterDTO);
             }
             if (editType === 'edit') {
-              if ('id' in value) {
-                value.id = editFormValues?.id as User['id'];
-              }
+              (value as User).id = editFormValues?.id as string;
               await updateUser(value as User);
             }
             closeModal();
