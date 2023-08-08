@@ -24,8 +24,12 @@ const auth = createSlice({
     setRefreshToken(state, { payload }) {
       state.refreshToken = payload;
     },
+    reset() {
+      return initialState;
+    },
   },
 });
-export const { setUserInfo, setRefreshToken, setAccessToken } = auth.actions;
+export const { reset, setUserInfo, setRefreshToken, setAccessToken } =
+  auth.actions;
 export const authSelector = (state: RootState) => state.auth;
 export const authReducer = auth.reducer;

@@ -1,4 +1,5 @@
-import { useAppSelector } from '@/store/hooks';
+import { reset } from '@/store/auth';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { easyConfirm } from '@/utils/tools';
 import { useNavigate } from '@@/exports';
 import { RunTimeLayoutConfig } from '@@/plugin-layout/types';
@@ -18,6 +19,7 @@ const RightAvatar = (prop: Props): JSX.Element => {
   console.log('prop', prop);
   const navigate = useNavigate();
   const { userInfo } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
   const menuItems: MenuProps['items'] = [
     {
       key: 'center',
@@ -38,6 +40,13 @@ const RightAvatar = (prop: Props): JSX.Element => {
     {
       key: 'logout',
       label: '退出登录',
+      onClick: async () => {
+        await easyConfirm('提示', '确定要退出登录吗？');
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        dispatch(reset());
+        navigate('/login');
+      },
     },
   ];
   return (

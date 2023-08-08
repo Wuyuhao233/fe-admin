@@ -48,6 +48,8 @@ const handleRemove = async (selectedRows: User[]) => {
 };
 
 const UserList: React.FC<unknown> = () => {
+  // 重置密码
+
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
   const [row, setRow] = useState<User>();
@@ -188,6 +190,7 @@ const UserList: React.FC<unknown> = () => {
       title: '邮箱',
       dataIndex: 'email',
       valueType: 'text',
+      hideInSearch: true,
       formItemProps: {
         rules: [
           {

@@ -1,4 +1,5 @@
 import { inputStyles } from '@/config/styles';
+import ResetPwd from '@/pages/Login/ResetPwd';
 import { LoginDTO } from '@/pages/Login/loginController';
 import { setAccessToken, setRefreshToken } from '@/store/auth';
 import { useAppDispatch } from '@/store/hooks';
@@ -8,13 +9,14 @@ import {
   ProFormInstance,
   ProFormText,
 } from '@ant-design/pro-components';
-import { Button, message } from 'antd';
-import { useRef } from 'react';
+import { Button, Typography, message } from 'antd';
+import { useRef, useState } from 'react';
 import './index.less';
 import loginController from './loginController';
 const { loginUser, getPublicKey } = loginController;
-
+const { Link } = Typography;
 export default function Login() {
+  const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -80,8 +82,12 @@ export default function Login() {
             label={'密码'}
             placeholder={'请输入密码'}
           />
+          <div className={'flex flex-row-reverse'}>
+            <Link onClick={() => setVisible(true)}>忘记密码？</Link>
+          </div>
         </ProForm>
       </div>
+      <ResetPwd visible={visible} setVisible={setVisible} />
     </div>
   );
 }

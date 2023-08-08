@@ -1,9 +1,16 @@
+import { http } from '@/request/http';
 import loginService from '@/services/login';
 import { rsaTool } from '@/utils/rsaTool';
 export interface LoginDTO {
   autoLogin?: boolean;
   name: string;
   password: string;
+  publicKey: string;
+}
+export interface ResetDTO {
+  email: string;
+  password: string;
+  code: string;
   publicKey: string;
 }
 export interface RegisterDTO {
@@ -44,6 +51,15 @@ class LoginController {
   // 获取email验证码
   async getMailCaptcha(email: string) {
     return await loginService.getMailCaptcha(email);
+  }
+  // 获取重置密码的验证码
+  async resetPwdCaptcha(email: string) {
+    return await http.get<string>('/auth/resetPwdCaptcha', { email });
+  }
+  //   重置密码
+
+  async resetPassword(resetInfo: ResetDTO) {
+    return http.post('/auth/resetPassword', resetInfo);
   }
 }
 
