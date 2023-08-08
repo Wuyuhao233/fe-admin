@@ -7,11 +7,13 @@ export interface LoginDTO {
   publicKey: string;
 }
 export interface RegisterDTO {
-  confirmPassword?: string;
   name: string;
-  password: string;
+  nickName: string;
   email: string;
+  phone: string;
   code: string;
+  avatar?: string;
+  gender: number;
 }
 class LoginController {
   static instance: LoginController;

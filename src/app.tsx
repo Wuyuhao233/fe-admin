@@ -49,7 +49,7 @@ export function render(oldRender: any) {
  * 请求配置
  */
 export const request: RequestConfig = {
-  timeout: 1000,
+  timeout: 5000,
   // other axios options you want
   errorConfig: {
     errorHandler() {},

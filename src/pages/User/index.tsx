@@ -61,13 +61,14 @@ const UserList: React.FC<unknown> = () => {
     modifyUser,
     actionRef.current?.reload,
   );
+  const { run: register, loading: registeroading } = useReqWithMsg(
+    registerUser,
+    actionRef.current?.reload,
+  );
   // 编辑表单的初始化
   const [editFormValues, setEditFormValues] = useState<User>();
   const [editType, setEditType] = useState<'add' | 'edit'>('add');
-  function closeModal() {
-    handleModalVisible(false);
-    setEditFormValues(undefined);
-  }
+
   // 邮箱验证码
   const [captchaBtnDsb, setCaptchaBtnDsb] = useState<ValidProps>({
     disabled: true,
@@ -105,6 +106,14 @@ const UserList: React.FC<unknown> = () => {
       message.error(data);
     }
   };
+  function closeModal() {
+    handleModalVisible(false);
+    setEditFormValues(undefined);
+    setCaptchaBtnDsb({
+      disabled: true,
+      validateStatus: '',
+    });
+  }
   const columns: ProDescriptionsItemProps<User>[] = [
     {
       title: 'id',
@@ -338,13 +347,12 @@ const UserList: React.FC<unknown> = () => {
         modalVisible={createModalVisible}
       >
         <ProTable<User, RegisterDTO | User>
-          loading={updateLoading}
+          loading={updateLoading || registeroading}
           formRef={forRef}
           onSubmit={async (value) => {
             console.log('value', value);
-            console.log(forRef.current?.getFieldsValue());
             if (editType === 'add') {
-              await registerUser(value as RegisterDTO);
+              await register(value as RegisterDTO);
             }
             if (editType === 'edit') {
               if ('id' in value) {
