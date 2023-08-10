@@ -1,6 +1,6 @@
 import { ISeries } from '@/declare/warehouse';
 import { useReqWithMsg } from '@/hooks/useReqWithMsg';
-import CreateForm from '@/pages/User/components/CreateForm';
+import CreateForm from '@/pages/System/components/CreateForm';
 import ModuleController from '@/pages/Warehouse/module.controller';
 import SeriesController from '@/pages/Warehouse/series/series.controller';
 import {

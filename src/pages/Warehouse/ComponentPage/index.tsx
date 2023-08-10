@@ -1,7 +1,7 @@
 import { IComponent } from '@/declare/warehouse';
 import { useReqWithMsg } from '@/hooks/useReqWithMsg';
 import { useUpload } from '@/hooks/useUpload';
-import CreateForm from '@/pages/User/components/CreateForm';
+import CreateForm from '@/pages/System/components/CreateForm';
 import ComponentController from '@/pages/Warehouse/ComponentPage/component.controller';
 import ModuleController from '@/pages/Warehouse/module.controller';
 import SeriesController from '@/pages/Warehouse/series/series.controller';

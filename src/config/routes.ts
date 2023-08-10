@@ -16,23 +16,28 @@ export const routes: IRoutes[] = [
     component: './Access',
   },
   {
-    name: ' 用户管理',
-    path: '/user',
+    name: ' 系统管理',
+    path: '/system',
     routes: [
       {
         name: '用户列表',
-        path: 'list',
-        component: './User/index.tsx',
+        path: 'user',
+        component: './System/User/index.tsx',
       },
       {
         name: '角色管理',
         path: 'role',
-        component: './User/Role/index.tsx',
+        component: './System/Role/index.tsx',
       },
       {
         name: '权限管理',
         path: 'permission',
-        component: './User/Permission/index.tsx',
+        component: './System/Permission/index.tsx',
+      },
+      {
+        name: '菜单管理',
+        path: 'menu',
+        component: './System/Menu/index.tsx',
       },
     ],
   },

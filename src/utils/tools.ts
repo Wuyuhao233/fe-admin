@@ -49,3 +49,36 @@ export const easyConfirm = (title: string, content: string) => {
     });
   });
 };
+interface Node {
+  id: string;
+  parentId?: string | null;
+  children?: Node[];
+}
+/**
+ *
+ * @param data
+ * @param id
+ */
+export function findParent<T extends Node>(data: T[], id: string) {
+  function searchTree(node: any, targetId: string) {
+    if (node.id === targetId) {
+      return true; // 找到匹配的 ID，返回 true
+    }
+
+    for (let i = 0; i < node.children?.length || 0; i++) {
+      const child = node.children[i];
+      if (searchTree(child, targetId)) {
+        return true; // 在子节点中找到匹配的 ID，返回 true
+      }
+    }
+
+    return false; // 没有找到匹配的 ID，返回 false
+  }
+  for (let i = 0; i < data.length; i++) {
+    const node = data[i];
+    if (searchTree(node, id)) {
+      return node;
+    }
+  }
+  return null;
+}
