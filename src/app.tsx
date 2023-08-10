@@ -7,12 +7,14 @@ import { history, RequestConfig } from '@umijs/max';
 // @ts-ignore
 import RightAvatar from '@/components/RightAvartar';
 import InitialComponent from '@/InitialComponent';
+import { MenuInfo } from '@/pages/System/controller/menu.controller';
 import { AxiosConfig } from '@/request/AxiosConfig';
+import { traverse } from '@/request/fetch';
 import { RunTimeLayoutConfig } from '@@/plugin-layout/types';
+import { message } from 'antd';
 import { createElement, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-
 export async function getInitialState(): Promise<{
   name: string;
   loginToken: string;
@@ -21,7 +23,16 @@ export async function getInitialState(): Promise<{
   const loginToken = localStorage.getItem('access_token') || '';
   return { name: '@umijs/max', loginToken };
 }
-
+let fetchedMenu: MenuInfo[] = [];
+// note 不要做成异步的，否则会导致路由失效
+export function patchClientRoutes({ routes }: { routes: any[] }) {
+  //note 最后一个是菜单的配置,并且只需插入到children内即可，会自动同步到route内
+  // note require.default 方法可以获取到组件
+  if (fetchedMenu.length > 0) {
+    traverse(fetchedMenu, routes);
+  }
+  console.log('patchClientRoutes...', routes);
+}
 export const layout: RunTimeLayoutConfig = () => {
   return {
     layout: 'mix',
@@ -41,8 +52,25 @@ export const layout: RunTimeLayoutConfig = () => {
  */
 export function render(oldRender: any) {
   console.log('render... ');
-  // render 后才有route
-  oldRender();
+  //note render 后才有route
+  fetch('http://localhost:3333/api/v1/menu/flatMenuList', {
+    method: 'GET',
+    headers: {
+      // 添加  token
+      // todo 改成refresh_token，需要后端支持
+      Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+    },
+  }).then((res) => {
+    res.json().then((data) => {
+      console.log('fetch menuList...', data);
+      if (data.code === 200) {
+        fetchedMenu = data.data;
+      } else {
+        message.error('获取菜单失败');
+      }
+      oldRender();
+    });
+  });
 }
 
 /**

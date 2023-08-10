@@ -4,19 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff6158f4-7083-4782-b669-832e86896240" name="变更" comment="feat: 重置密码功能实现">
+    <list default="true" id="ff6158f4-7083-4782-b669-832e86896240" name="变更" comment="feat: 动态菜单功能">
+      <change afterPath="$PROJECT_DIR$/src/pages/Login/ResetPwd.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/RouteTest/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/System/Menu/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/System/Permission/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/System/Role/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/System/User/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/System/components/CreateForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/System/components/UpdateForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/System/controller/Role.controller.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/System/controller/menu.controller.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/System/controller/userController.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/request/fetch.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.umirc.ts" beforeDir="false" afterPath="$PROJECT_DIR$/.umirc.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/config/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/User/Permission/index.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/User/Role/index.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/User/components/CreateForm.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/User/components/UpdateForm.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/User/controller/Role.controller.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/User/controller/userController.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/User/index.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Warehouse/ComponentPage/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Warehouse/ComponentPage/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Warehouse/series/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Warehouse/series/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/tools.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/tools.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -161,7 +165,7 @@
       <workItem from="1691413652406" duration="4747000" />
       <workItem from="1691452931892" duration="21048000" />
       <workItem from="1691541352772" duration="12411000" />
-      <workItem from="1691627162023" duration="6378000" />
+      <workItem from="1691627162023" duration="24368000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 添加Dockerfile">
       <option name="closed" value="true" />
@@ -251,7 +255,15 @@
       <option name="project" value="LOCAL" />
       <updated>1691477489394</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="feat: 完成树形表格，增删改查后的刷新">
+      <option name="closed" value="true" />
+      <created>1691636021749</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1691636021749</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,6 +291,8 @@
     <MESSAGE value="feat: 用户注册，优化loading、关闭时重置form验证" />
     <MESSAGE value="feat: 用户编辑功能" />
     <MESSAGE value="feat: 重置密码功能实现" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 重置密码功能实现" />
+    <MESSAGE value="feat: 完成树形表格，增删改查后的刷新" />
+    <MESSAGE value="feat: 动态菜单功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 动态菜单功能" />
   </component>
 </project>

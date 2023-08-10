@@ -41,22 +41,22 @@ export const routes: IRoutes[] = [
       },
     ],
   },
-  {
-    name: '仓库管理',
-    path: '/warehouse',
-    routes: [
-      {
-        name: '物料管理',
-        path: 'component',
-        component: './Warehouse/ComponentPage/index.tsx',
-      },
-      {
-        name: '类别管理',
-        path: 'series',
-        component: './Warehouse/series/index.tsx',
-      },
-    ],
-  },
+  // {
+  //   name: '仓库管理',
+  //   path: '/warehouse',
+  //   routes: [
+  //     {
+  //       name: '物料管理',
+  //       path: 'component',
+  //       component: './Warehouse/ComponentPage/index.tsx',
+  //     },
+  //     {
+  //       name: '类别管理',
+  //       path: 'series',
+  //       component: './Warehouse/series/index.tsx',
+  //     },
+  //   ],
+  // },
   {
     name: '个人中心',
     path: '/personal',
