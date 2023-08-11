@@ -26,6 +26,10 @@ export const traverse = (menu: FlatMenuInfo[], preRoute: PatchRoutes[]) => {
       // note ./page 是必须这样写的，否则会报错
     };
     if (item.filePath) {
+      console.log(
+        'see default ',
+        typeof require('@/pages' + item.filePath).default,
+      );
       // note 使用createElement方法，可以动态加载组件
       m.element = createElement(require('@/pages' + item.filePath).default);
     }

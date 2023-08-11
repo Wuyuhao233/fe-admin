@@ -1,3 +1,4 @@
+import { pathName } from '@/config/pathName';
 import { useReqWithMsg } from '@/hooks/useReqWithMsg';
 import CreateForm from '@/pages/System/components/CreateForm';
 import MenuController, {
@@ -214,10 +215,17 @@ const Menu: React.FC<unknown> = () => {
     {
       title: '文件地址',
       dataIndex: 'filePath',
-      valueType: 'text',
+      valueType: 'select',
       hideInSearch: true,
       // 菜单类型显示
       hideInForm: type !== '2',
+      valueEnum: () => {
+        const enumObj: any = {};
+        pathName.forEach((item) => {
+          enumObj[item] = { text: item };
+        });
+        return enumObj;
+      },
     },
     {
       title: '是否显示',
