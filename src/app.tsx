@@ -6,6 +6,7 @@ import stores from '@/store';
 import { history, RequestConfig } from '@umijs/max';
 // @ts-ignore
 import RightAvatar from '@/components/RightAvartar';
+import renderIcon from '@/config/iconMap';
 import InitialComponent from '@/InitialComponent';
 import { MenuInfo } from '@/pages/System/controller/menu.controller';
 import { AxiosConfig } from '@/request/AxiosConfig';
@@ -39,6 +40,32 @@ export const layout: RunTimeLayoutConfig = () => {
     logo: 'https://img.alicdn.com/tfs/TB1YHEpwUT1gK0jSZFhXXaAtVXa-28-27.svg',
     menu: {
       locale: false,
+    },
+    menuDataRender: (menuData) => {
+      console.log('menuDataRender...', menuData);
+      // note 需要这样处理，否则菜单收缩会有异常，icon 没有完全收缩
+      return menuData.map((item) => {
+        if (item.parentId === null) {
+          return {
+            ...item,
+            icon: renderIcon(item.icon as string),
+          };
+        }
+        return item;
+      });
+    },
+    // note 设置子菜单的icon，可以增加埋点等
+    menuItemRender: (item, defaultDom) => {
+      return (
+        <span className={'flex gap-2 cusMenu'}>
+          <span>{renderIcon(item.icon as string)}</span>
+          <span>
+            <a onClick={() => history.push(item.path || '/home')}>
+              {defaultDom}
+            </a>
+          </span>
+        </span>
+      );
     },
     rightContentRender: (headerProps, dom, props) => <RightAvatar {...props} />,
     noFound: <div>not found page</div>,

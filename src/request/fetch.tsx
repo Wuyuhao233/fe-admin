@@ -8,6 +8,7 @@ export interface PatchRoutes {
   name: string;
   element?: React.ReactNode;
   children?: PatchRoutes[];
+  icon?: string;
 }
 /**
  * 平铺的数据转成树形结构
@@ -23,6 +24,7 @@ export const traverse = (menu: FlatMenuInfo[], preRoute: PatchRoutes[]) => {
       parentId: item.parentId,
       path: item.parentId === null ? item.route : item.route.substring(1),
       name: item.name,
+      icon: item.icon,
       // note ./page 是必须这样写的，否则会报错
     };
     if (item.filePath) {

@@ -53,6 +53,7 @@ interface Node {
   id: string;
   parentId: string | null;
   children?: Node[];
+  icon?: string | JSX.Element;
 }
 /**
  *
@@ -92,6 +93,7 @@ export const buildTree = <T extends Node>(data: T[]) => {
   const map = new Map<string, T>();
   for (let i = 0; i < data.length; i++) {
     const item = data[i];
+
     /**
      * map中有父节点
      * 1. map中有父节点，直接添加到父节点的children中

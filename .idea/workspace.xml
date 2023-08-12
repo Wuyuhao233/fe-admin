@@ -5,22 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ff6158f4-7083-4782-b669-832e86896240" name="变更" comment="feat: 动态菜单完成">
-      <change afterPath="$PROJECT_DIR$/src/components/CusFormItem/MenuTree.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/NotFound/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/System/components/TreeModal.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.umirc.ts" beforeDir="false" afterPath="$PROJECT_DIR$/.umirc.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/InitialComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/InitialComponent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CusFormItem/ItemUpload.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CusFormItem/ItemUpload.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/config/pathName.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/pathName.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/declare/User/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/declare/User/index.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Login/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Login/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/System/Role/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/System/Role/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/System/User/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/System/User/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/System/controller/Role.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/System/controller/Role.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/System/controller/menu.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/System/controller/menu.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/global.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/global.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/System/Menu/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/System/Menu/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/request/fetch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/request/fetch.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/tools.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/tools.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

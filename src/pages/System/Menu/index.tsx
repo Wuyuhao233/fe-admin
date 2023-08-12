@@ -1,3 +1,4 @@
+import { iconMap } from '@/config/iconMap';
 import { pathName } from '@/config/pathName';
 import { useReqWithMsg } from '@/hooks/useReqWithMsg';
 import CreateForm from '@/pages/System/components/CreateForm';
@@ -209,6 +210,14 @@ const Menu: React.FC<unknown> = () => {
       title: '图标',
       dataIndex: 'icon',
       hideInSearch: true,
+      valueType: 'text',
+      valueEnum: () => {
+        const map: any = {};
+        Object.keys(iconMap).forEach((key) => {
+          map[key] = { text: iconMap[key] };
+        });
+        return map;
+      },
       //   按钮类型不显示
       hideInForm: type === '3',
     },
