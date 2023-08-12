@@ -4,13 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff6158f4-7083-4782-b669-832e86896240" name="变更" comment="feat: 动态菜单功能">
+    <list default="true" id="ff6158f4-7083-4782-b669-832e86896240" name="变更" comment="feat: 动态菜单完成">
+      <change afterPath="$PROJECT_DIR$/src/components/CusFormItem/MenuTree.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/NotFound/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/System/components/TreeModal.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.umirc.ts" beforeDir="false" afterPath="$PROJECT_DIR$/.umirc.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/System/Menu/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/System/Menu/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/request/fetch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/request/fetch.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/InitialComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/InitialComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CusFormItem/ItemUpload.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CusFormItem/ItemUpload.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/pathName.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/pathName.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/declare/User/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/declare/User/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Login/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Login/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/System/Role/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/System/Role/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/System/User/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/System/User/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/System/controller/Role.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/System/controller/Role.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/System/controller/menu.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/System/controller/menu.controller.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,7 +165,8 @@
       <workItem from="1691452931892" duration="21048000" />
       <workItem from="1691541352772" duration="12411000" />
       <workItem from="1691627162023" duration="26183000" />
-      <workItem from="1691713800539" duration="7834000" />
+      <workItem from="1691713800539" duration="14870000" />
+      <workItem from="1691801571580" duration="14469000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 添加Dockerfile">
       <option name="closed" value="true" />
@@ -261,7 +272,15 @@
       <option name="project" value="LOCAL" />
       <updated>1691676142691</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="feat: 插件读取page下的index文件">
+      <option name="closed" value="true" />
+      <created>1691734311297</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1691734311297</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -291,6 +310,8 @@
     <MESSAGE value="feat: 重置密码功能实现" />
     <MESSAGE value="feat: 完成树形表格，增删改查后的刷新" />
     <MESSAGE value="feat: 动态菜单功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 动态菜单功能" />
+    <MESSAGE value="feat: 插件读取page下的index文件" />
+    <MESSAGE value="feat: 动态菜单完成" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 动态菜单完成" />
   </component>
 </project>

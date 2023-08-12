@@ -3,12 +3,12 @@ import { Upload } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import { UploadProps } from 'antd/es/upload/interface';
 import { CSSProperties, useState } from 'react';
-export interface FormItemProps {
+export interface FormItemProps<T extends any> {
   id?: string;
   onBlur?: () => void;
   onChange?: (e: any) => void;
   style?: CSSProperties;
-  value?: any;
+  value?: T;
 }
 
 /**
@@ -17,7 +17,7 @@ export interface FormItemProps {
  * @param rest
  * @constructor
  */
-const ItemUpload = ({ onChange, ...rest }: FormItemProps) => {
+const ItemUpload = ({ onChange, ...rest }: FormItemProps<any>) => {
   console.log('prop', rest);
   const { run } = useUpload();
   const customRequest: UploadProps['customRequest'] = async ({

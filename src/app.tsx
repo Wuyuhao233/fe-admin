@@ -53,24 +53,31 @@ export const layout: RunTimeLayoutConfig = () => {
 export function render(oldRender: any) {
   console.log('render... ');
   //note render 后才有route
-  fetch('http://localhost:3333/api/v1/menu/flatMenuList', {
-    method: 'GET',
-    headers: {
-      // 添加  token
-      // todo 改成refresh_token，需要后端支持
-      Authorization: 'Bearer ' + localStorage.getItem('access_token'),
-    },
-  }).then((res) => {
-    res.json().then((data) => {
-      console.log('fetch menuList...', data);
-      if (data.code === 200) {
-        fetchedMenu = data.data;
-      } else {
-        message.error('获取菜单失败');
-      }
-      oldRender();
+  // note 写在这里在推出登录后，再次登录，会导致菜单失效
+  // 所以需要在patchClientRoutes中进行处理
+  // 由于登录后会刷新页面，所以登录页面无需获取菜单
+  if (localStorage.getItem('refresh_token')) {
+    fetch('http://localhost:3333/api/v1/menu/getCurUserMenu', {
+      method: 'GET',
+      headers: {
+        // 添加  token
+        // todo 改成refresh_token，需要后端支持
+        Authorization: 'Bearer ' + localStorage.getItem('refresh_token'),
+      },
+    }).then((res) => {
+      res.json().then((data) => {
+        console.log('fetch menuList...', data);
+        if (data.code === 200) {
+          fetchedMenu = data.data;
+        } else {
+          message.error('获取菜单失败');
+        }
+        oldRender();
+      });
     });
-  });
+  } else {
+    oldRender();
+  }
 }
 
 /**
@@ -118,6 +125,7 @@ const RTKProvider = ({ children }: { children: JSX.Element }) => (
  * plugin，运行时插件机制
  * history，history 实例
  */
-export function rootContainer(container: React.ReactNode) {
+export function rootContainer(container: React.ReactNode, args: any) {
+  console.log('rootContainer... ', args);
   return createElement(RTKProvider, null, container);
 }

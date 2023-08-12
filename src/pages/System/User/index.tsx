@@ -4,6 +4,7 @@ import { noSizeInputStyles } from '@/config/styles';
 import { User } from '@/declare/User';
 import { useReqWithMsg } from '@/hooks/useReqWithMsg';
 import loginController, { RegisterDTO } from '@/pages/Login/loginController';
+import RoleController from '@/pages/System/controller/Role.controller';
 import userController from '@/pages/System/controller/userController';
 import { PlusOutlined } from '@ant-design/icons';
 import {
@@ -16,7 +17,7 @@ import {
   ProFormInstance,
   ProTable,
 } from '@ant-design/pro-components';
-import { Button, Divider, Drawer, Typography, message } from 'antd';
+import { Button, Divider, Drawer, Tag, Typography, message } from 'antd';
 import { debounce } from 'lodash';
 import React, { ChangeEventHandler, useRef, useState } from 'react';
 import CreateForm from '../components/CreateForm';
@@ -247,11 +248,31 @@ const UserList: React.FC<unknown> = () => {
     {
       title: '角色',
       dataIndex: 'roles',
-      valueType: 'text',
-      hideInForm: true,
+      valueType: 'select',
       hideInSearch: true,
-      renderText: (roles) => {
-        return roles;
+      fieldProps: {
+        placeholder: '请选择角色',
+        mode: 'multiple',
+      },
+      render: (_, record) => {
+        return record.roles?.map((item) => {
+          return typeof item === 'string' ? (
+            '-'
+          ) : (
+            <Tag color="blue" key={item.id}>
+              {item.title}
+            </Tag>
+          );
+        });
+      },
+      request: async () => {
+        const res = await RoleController.getRoleList();
+        return res.data.map((item) => {
+          return {
+            label: item.title,
+            value: item.id,
+          };
+        });
       },
     },
     {
@@ -278,6 +299,9 @@ const UserList: React.FC<unknown> = () => {
                 ...record,
                 gender: String(record.gender),
                 avatar: undefined,
+                roles: record.roles?.map((item) => {
+                  return typeof item === 'string' ? item : item.id;
+                }),
               });
               setEditType('edit');
             }}
@@ -292,7 +316,7 @@ const UserList: React.FC<unknown> = () => {
   ];
   //note 给表单添加样式
   columns.forEach((column) => {
-    column.fieldProps = noSizeInputStyles;
+    column.fieldProps = { ...(column.fieldProps || {}), ...noSizeInputStyles };
   });
 
   return (

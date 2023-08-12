@@ -1,6 +1,8 @@
+import { RoleInfo } from '@/pages/System/controller/Role.controller';
+
 export interface User {
   id: string;
-  roles?: Array<string>;
+  roles?: RoleInfo[] | string[];
   name?: string;
   openId?: string;
   nickname?: string;

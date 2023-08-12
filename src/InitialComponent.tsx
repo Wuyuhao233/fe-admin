@@ -1,5 +1,5 @@
 import initialController from '@/initial.controller';
-import { setUserInfo } from '@/store/auth';
+import { setAccessToken, setRefreshToken, setUserInfo } from '@/store/auth';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { useRequest } from '@umijs/max';
 import { useEffect } from 'react';
@@ -21,6 +21,17 @@ const InitialComponent = ({
       dispatch(setUserInfo(res.data));
     },
   });
+  /**
+   * 由于登录后，准备刷新页面，所以需要从localStorage中获取token
+   */
+  useEffect(() => {
+    const access_token = localStorage.getItem('access_token');
+    const refresh_token = localStorage.getItem('refresh_token');
+    if (access_token && refresh_token) {
+      dispatch(setAccessToken(access_token));
+      dispatch(setRefreshToken(refresh_token));
+    }
+  }, []);
   useEffect(() => {
     if (refreshToken && accessToken) {
       run();

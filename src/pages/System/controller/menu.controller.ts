@@ -7,7 +7,9 @@ export interface MenuInfo extends IBase {
   hasChild?: boolean;
   children: MenuInfo[];
   route: string;
+  key: string;
 }
+
 export interface FlatMenuInfo extends IBase {
   parentId: string | null;
   name: string;
@@ -39,24 +41,59 @@ export class MenuController {
     return this;
   }
 
+  /**
+   * 获取菜单列表,一级菜单
+   * @param pageInfo
+   */
   async queryMenuList(pageInfo: IBaseDto) {
     return await http.get<MenuInfo[]>('/menu/menuList', pageInfo);
   }
+
+  /**
+   * 获取父节点下的所有子节点，不是树形结构
+   * @param id
+   */
   async getChildMenuList(id: string) {
     return await http.get<MenuInfo[]>('/menu/getChildMenu', { id });
   }
+
+  /**
+   * 获取菜单详情
+   * @param id
+   */
   async getMenuInfo(id: string) {
     return await http.get<MenuInfo>('/menu/getMenuInfo', { id });
   }
+
+  /**
+   * 删除菜单
+   * @param id
+   */
   async deleteMenu(id: number | string) {
     return await http.delete('/menu/deleteMenu', { id });
   }
 
+  /**
+   * 修改菜单
+   * @param menu
+   */
   async modifyMenu(menu: MenuDto) {
     return await http.post('/menu/updateMenu', menu);
   }
+
+  /**
+   * 添加菜单
+   * @param menu
+   */
   async addMenu(menu: MenuDto) {
     return await http.post('/menu/addMenu', menu);
+  }
+
+  /**
+   * 获取所有的菜单，树形结构
+   */
+  async getMenuTree() {
+    return await http.get<MenuInfo[]>('/menu/getMenuTree');
   }
 }
 

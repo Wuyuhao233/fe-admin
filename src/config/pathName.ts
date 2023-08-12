@@ -2,6 +2,7 @@ export const pathName = [
   '/Access/index.tsx',
   '/Home/index.tsx',
   '/Login/index.tsx',
+  '/NotFound/index.tsx',
   '/Personal/Profile/index.tsx',
   '/RouteTest/index.tsx',
   '/System/Menu/index.tsx',

@@ -1,8 +1,11 @@
+import MenuTree from '@/components/CusFormItem/MenuTree';
 import { useReqWithMsg } from '@/hooks/useReqWithMsg';
 import CreateForm from '@/pages/System/components/CreateForm';
+import TreeModal from '@/pages/System/components/TreeModal';
 import RoleController, {
   RoleInfo,
 } from '@/pages/System/controller/Role.controller';
+import { PlusOutlined } from '@ant-design/icons';
 import {
   ActionType,
   FooterToolbar,
@@ -14,15 +17,18 @@ import {
 import { Button, Divider, Drawer, Typography } from 'antd';
 import React, { useRef, useState } from 'react';
 
-const { getRoleList, deleteRoleById, updateRole } = RoleController;
+const { getRoleList, deleteRoleById, updateRole, addRole } = RoleController;
 const { Link } = Typography;
 
 const Role: React.FC<unknown> = () => {
-  const [createModalVisible, handleModalVisible] = useState<boolean>(false);
+  const [modal, handleModal] = useState({
+    visible: false,
+    type: '',
+  });
   const actionRef = useRef<ActionType>();
   const [row, setRow] = useState<RoleInfo>();
   const [selectedRowsState, setSelectedRows] = useState<RoleInfo[]>([]);
-
+  const [treeModal, setTreeModal] = useState(false);
   const { run: deleteRole } = useReqWithMsg(
     deleteRoleById,
     actionRef.current?.reload,
@@ -31,12 +37,30 @@ const Role: React.FC<unknown> = () => {
     updateRole,
     actionRef.current?.reload,
   );
+  const { run: add, loading: addLoading } = useReqWithMsg(
+    addRole,
+    actionRef.current?.reload,
+  );
   // 编辑表单的初始化
   const [editFormValues, setEditFormValues] = useState<RoleInfo>();
   function closeModal() {
-    handleModalVisible(false);
+    handleModal({
+      visible: false,
+      type: '',
+    });
     setEditFormValues(undefined);
   }
+  const onMenuChange = async (e: any) => {
+    if (editFormValues) {
+      const res = await update({
+        ...editFormValues,
+        menuIds: e,
+      });
+      if (res.code === 200) {
+        setTreeModal(false);
+      }
+    }
+  };
   const columns: ProDescriptionsItemProps<RoleInfo>[] = [
     {
       title: 'id',
@@ -66,6 +90,16 @@ const Role: React.FC<unknown> = () => {
       hideInSearch: true,
     },
     {
+      // note 像这种需要自定义的，或者说各种转换的，在editFormValue或者onSubmit处理
+      title: '分配菜单',
+      dataIndex: 'menus',
+      hideInSearch: true,
+      hideInTable: true,
+      renderFormItem: () => {
+        return <MenuTree />;
+      },
+    },
+    {
       title: '创建时间',
       dataIndex: 'createTime',
       valueType: 'dateTime',
@@ -83,11 +117,21 @@ const Role: React.FC<unknown> = () => {
       valueType: 'option',
       render: (_, record) => (
         <>
-          <Link onClick={() => deleteRole(record.id)}>分配菜单</Link>
+          <Link
+            onClick={() => {
+              setEditFormValues(record);
+              setTreeModal(true);
+            }}
+          >
+            分配菜单
+          </Link>
           <Divider type="vertical" />
           <Link
             onClick={() => {
-              handleModalVisible(true);
+              handleModal({
+                visible: true,
+                type: 'edit',
+              });
               setEditFormValues(record);
             }}
           >
@@ -113,7 +157,22 @@ const Role: React.FC<unknown> = () => {
         search={{
           labelWidth: 120,
         }}
-        toolBarRender={() => []}
+        toolBarRender={() => [
+          <Button
+            key="button"
+            icon={<PlusOutlined />}
+            onClick={() => {
+              handleModal({
+                visible: true,
+                type: 'addNew',
+              });
+              setEditFormValues(undefined);
+            }}
+            type="primary"
+          >
+            新建
+          </Button>,
+        ]}
         request={async (params) => {
           const res = await getRoleList({
             pageSize: params.pageSize || 15,
@@ -150,14 +209,22 @@ const Role: React.FC<unknown> = () => {
         </FooterToolbar>
       )}
       <CreateForm
-        onCancel={() => handleModalVisible(false)}
-        modalVisible={createModalVisible}
+        onCancel={() => handleModal({ visible: false, type: '' })}
+        modalVisible={modal.visible}
       >
         <ProTable<RoleInfo, RoleInfo>
-          loading={updateLoading}
+          loading={updateLoading || addLoading}
           onSubmit={async (value) => {
-            value.id = editFormValues?.id || '';
-            await update(value);
+            console.log('value', value);
+            value.menuIds = value.menus as string[];
+            delete value.menus;
+            if (modal.type === 'addNew') {
+              await add(value);
+            }
+            if (modal.type === 'edit') {
+              value.id = editFormValues?.id || '';
+              await update(value);
+            }
             closeModal();
           }}
           rowKey="id"
@@ -195,6 +262,12 @@ const Role: React.FC<unknown> = () => {
           />
         )}
       </Drawer>
+      <TreeModal
+        visible={treeModal}
+        setVisible={setTreeModal}
+        value={editFormValues?.menus}
+        onChange={onMenuChange}
+      />
     </PageContainer>
   );
 };

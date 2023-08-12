@@ -1,12 +1,15 @@
 import { IBase, IBaseDto } from '@/declare';
+import { FlatMenuInfo } from '@/pages/System/controller/menu.controller';
 import { http } from '@/request/http';
 export interface RoleInfo extends IBase {
   name: string;
   title: string;
+  menus?: FlatMenuInfo[] | string[];
+  menuIds?: string[];
 }
 type RoleDto = IBaseDto;
 class RoleController {
-  getRoleList(params: RoleDto) {
+  getRoleList(params?: RoleDto) {
     return http.get<RoleInfo[]>('/role/getRoleList', params);
   }
   getRoleById(id: string) {

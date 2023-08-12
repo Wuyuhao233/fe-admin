@@ -1,9 +1,7 @@
 import { inputStyles } from '@/config/styles';
 import ResetPwd from '@/pages/Login/ResetPwd';
 import { LoginDTO } from '@/pages/Login/loginController';
-import { setAccessToken, setRefreshToken } from '@/store/auth';
-import { useAppDispatch } from '@/store/hooks';
-import { useNavigate } from '@@/exports';
+// import { useNavigate, } from '@@/exports';
 import {
   ProForm,
   ProFormInstance,
@@ -17,9 +15,6 @@ const { loginUser, getPublicKey } = loginController;
 const { Link } = Typography;
 export default function Login() {
   const [visible, setVisible] = useState(false);
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-
   const forRef = useRef<ProFormInstance>(); // 获取表单实例
   // 登录和注册
 
@@ -33,10 +28,9 @@ export default function Login() {
           // note 这里确实比较麻烦，但是不知道怎么解决
           localStorage.setItem('access_token', data.access_token);
           localStorage.setItem('refresh_token', data.refresh_token);
-          dispatch(setRefreshToken(data.refresh_token));
-          dispatch(setAccessToken(data.access_token));
         }
-        navigate('/home');
+        //   需要刷新页面，所以需要使用window.location.href
+        window.location.href = window.location.origin + '/home';
       });
     } else {
       message.error(msg);

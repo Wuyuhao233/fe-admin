@@ -15,32 +15,32 @@ export const routes: IRoutes[] = [
     path: '/access',
     component: './Access',
   },
-  {
-    name: ' 系统管理',
-    path: '/system',
-    routes: [
-      {
-        name: '用户列表',
-        path: 'user',
-        component: './System/User/index.tsx',
-      },
-      {
-        name: '角色管理',
-        path: 'role',
-        component: './System/Role/index.tsx',
-      },
-      {
-        name: '权限管理',
-        path: 'permission',
-        component: './System/Permission/index.tsx',
-      },
-      {
-        name: '菜单管理',
-        path: 'menu',
-        component: './System/Menu/index.tsx',
-      },
-    ],
-  },
+  // {
+  //   name: ' 系统管理',
+  //   path: '/system',
+  //   routes: [
+  //     {
+  //       name: '用户列表',
+  //       path: 'user',
+  //       component: './System/User/index.tsx',
+  //     },
+  //     {
+  //       name: '角色管理',
+  //       path: 'role',
+  //       component: './System/Role/index.tsx',
+  //     },
+  //     {
+  //       name: '权限管理',
+  //       path: 'permission',
+  //       component: './System/Permission/index.tsx',
+  //     },
+  //     {
+  //       name: '菜单管理',
+  //       path: 'menu',
+  //       component: './System/Menu/index.tsx',
+  //     },
+  //   ],
+  // },
   // {
   //   name: '仓库管理',
   //   path: '/warehouse',
@@ -79,6 +79,12 @@ export const routes: IRoutes[] = [
     name: '测试',
     path: '/test',
     component: './Test',
+    layout: false,
+  },
+  {
+    name: '404',
+    path: '*',
+    component: './NotFound',
     layout: false,
   },
 ];
