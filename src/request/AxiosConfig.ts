@@ -12,6 +12,7 @@ interface RequestQueue {
 export class AxiosConfig {
   static isRefreshing = false;
   static queue: RequestQueue[] = [];
+  static timeout: 5000;
   static requestInterceptor(config: AxiosRequestConfig): AxiosRequestConfig {
     if (config.url !== '/auth/refreshToken' && AxiosConfig.isRefreshing) {
       // add request to queue
@@ -31,7 +32,6 @@ export class AxiosConfig {
     }
     // 重新发送不需要加前缀
     if (!config.url.startsWith(PREFIX)) {
-      console.log('add prefix', config.url);
       config.url = PREFIX + config.url;
     }
     return { ...config };

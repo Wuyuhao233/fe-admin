@@ -15,8 +15,7 @@ type RightRender = Exclude<
 >;
 type Props = Parameters<RightRender>[2];
 
-const RightAvatar = (prop: Props): JSX.Element => {
-  console.log('prop', prop);
+const RightAvatar = (props: Props): JSX.Element => {
   const navigate = useNavigate();
   const { userInfo } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
@@ -41,6 +40,7 @@ const RightAvatar = (prop: Props): JSX.Element => {
       key: 'logout',
       label: '退出登录',
       onClick: async () => {
+        console.log('logout...', props);
         await easyConfirm('提示', '确定要退出登录吗？');
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');

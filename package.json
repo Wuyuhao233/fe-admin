@@ -17,6 +17,7 @@
     "@types/lodash": "^4.14.196",
     "@types/node": "^20.4.9",
     "@types/react-redux": "^7.1.25",
+    "@types/spark-md5": "^3.0.2",
     "@umijs/max": "^4.0.70",
     "antd": "~4.24.12",
     "antd-img-crop": "^4.12.2",
@@ -25,7 +26,8 @@
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-redux": "^8.1.1",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "spark-md5": "^3.0.2"
   },
   "devDependencies": {
     "@iconify-json/ant-design": "1.1.7",

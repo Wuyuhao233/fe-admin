@@ -1,36 +1,43 @@
-import { useUpload } from '@/hooks/useUpload';
+import { uploadFile } from '@/utils/upload';
 import { Upload } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import { UploadProps } from 'antd/es/upload/interface';
 import { CSSProperties, useState } from 'react';
-export interface FormItemProps<T extends any> {
+export interface FormItemProps<T extends any> extends UploadProps {
   id?: string;
   onBlur?: () => void;
   onChange?: (e: any) => void;
   style?: CSSProperties;
   value?: T;
+  isMultiple?: boolean;
 }
 
 /**
  *
  * @param onChange 用于修改表单值，传递给表单的值
+ * @param isMultiple 是否分片上传，适用于大文件，默认为false
  * @param rest
  * @constructor
  */
-const ItemUpload = ({ onChange, ...rest }: FormItemProps<any>) => {
+const ItemUpload = ({
+  onChange,
+  isMultiple = false,
+  ...rest
+}: FormItemProps<any>) => {
   console.log('prop', rest);
-  const { run } = useUpload();
+
   const customRequest: UploadProps['customRequest'] = async ({
     file,
     onSuccess,
     onProgress,
   }) => {
     if (file instanceof File) {
-      await run({
+      await uploadFile({
         data: file,
         fileName: file.name,
         uploadProgress: onProgress,
         onSuccess: onSuccess,
+        isMulti: isMultiple,
       });
     }
   };
@@ -51,6 +58,7 @@ const ItemUpload = ({ onChange, ...rest }: FormItemProps<any>) => {
           console.log('remove');
           setFile(undefined);
         }}
+        {...rest}
       >
         {/*当有文件时，不显示上传按钮*/}
         {file ? null : '+'}

@@ -1,50 +1,42 @@
+import { useUpload } from '@/hooks/useUpload';
 import { Upload } from 'antd';
-import ImgCrop from 'antd-img-crop';
-import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
-import React, { useState } from 'react';
+import { UploadProps } from 'antd/es/upload/interface';
+import { useState } from 'react';
 
-const App: React.FC = () => {
-  const [fileList, setFileList] = useState<UploadFile[]>([
-    {
-      uid: '-1',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-  ]);
-
-  const onChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
-    setFileList(newFileList);
-  };
-
-  const onPreview = async (file: UploadFile) => {
-    let src = file.url as string;
-    if (!src) {
-      src = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj as RcFile);
-        reader.onload = () => resolve(reader.result as string);
+const Home = () => {
+  const { run } = useUpload();
+  const customRequest: UploadProps['customRequest'] = async ({
+    file,
+    onSuccess,
+    onProgress,
+  }) => {
+    if (file instanceof File) {
+      await run({
+        data: file,
+        fileName: file.name,
+        uploadProgress: onProgress,
+        onSuccess: onSuccess,
+        isMulti: true,
       });
     }
-    const image = new Image();
-    image.src = src;
-    const imgWindow = window.open(src);
-    imgWindow?.document.write(image.outerHTML);
   };
-
+  const [file, setFile] = useState<any>();
   return (
-    <ImgCrop rotationSlider>
-      <Upload
-        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-        listType="picture-card"
-        fileList={fileList}
-        onChange={onChange}
-        onPreview={onPreview}
-      >
-        {fileList.length < 5 && '+ Upload'}
-      </Upload>
-    </ImgCrop>
+    <Upload
+      listType="picture-card"
+      customRequest={customRequest}
+      onChange={({ fileList }) => {
+        console.log('fileList', fileList);
+      }}
+      maxCount={1}
+      onRemove={() => {
+        console.log('remove');
+        setFile(undefined);
+      }}
+    >
+      {/*当有文件时，不显示上传按钮*/}
+      {file ? null : '+'}
+    </Upload>
   );
 };
-
-export default App;
+export default Home;
