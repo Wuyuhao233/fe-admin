@@ -1,8 +1,10 @@
 import { CHUNCK_SIZE } from '@/config/constants';
 import { UploadFileParams } from '@/declare/utils';
 import { baseUpload, mergeFile, verifyFile } from '@/request/upload.request';
-import SparkMD5 from 'spark-md5';
-
+export interface WorkerExport {
+  fileHash: string;
+  chunkList: Blob[];
+}
 interface MultiFileUploader {
   SplitFile: (file: File, chunkSize?: number) => Blob[];
 }
@@ -31,6 +33,7 @@ export const splitFile: MultiFileUploader['SplitFile'] = (
 
 /**
  * 文件上传，支持分片
+ * note 目前存在视频hash值不一致的问题，需要解决
  * @param fileName
  * @param data
  * @param uploadProgress
@@ -44,6 +47,7 @@ export const uploadFile = async ({
   onSuccess,
   isMulti = false,
 }: UploadFileParams) => {
+  console.log('uploadFile', fileName, data);
   // note 需要去掉后缀
   const fName = encodeURI(fileName);
   const formData = new FormData();
@@ -53,23 +57,28 @@ export const uploadFile = async ({
   const startTime = Date.now();
   // 是否分片
   if (isMulti) {
-    // todo 后续用webWorker来处理
-    // 速度很快，不用开启webWorker
-    const spark = new SparkMD5.ArrayBuffer();
-    const chunkList = splitFile(data);
-    for (let i = 0; i < chunkList.length; i++) {
-      const reader = new FileReader();
-      reader.readAsArrayBuffer(chunkList[i]);
-      reader.onload = (e: any) => {
-        spark.append(e.target.result);
+    let fileHash = '';
+    let chunkList = splitFile(data);
+    // 开启web-worker
+    await new Promise((resolve) => {
+      console.log('web-worker start...');
+      const worker = new Worker('/web-worker/md5Worker.js');
+      worker.postMessage(chunkList);
+      worker.onmessage = function (e: MessageEvent<string>) {
+        console.log('onmessage', e.data);
+        fileHash = e.data;
+        resolve(e);
       };
-    }
-
-    // 整个文件的hash
-    const fileHash = spark.end();
+      console.log('worker', worker);
+      worker.onerror = function (e) {
+        console.log('web-worker error', e);
+      };
+    });
     // 结束时间
     const endTime = Date.now();
-    console.log('md5计算时间', fileHash, endTime - startTime);
+    // note 70mb -0.8s ,900 - 10s,差不多100mb/s，但是电脑较差时，会有卡顿
+    //
+    console.log('md5计算时间', fileHash, (endTime - startTime) / 1000, 's');
     // note 秒传的实现
     res = await verifyFile(fileHash, fName);
     if (res.code === 304) {
@@ -89,7 +98,7 @@ export const uploadFile = async ({
       });
     }
     console.log('chunkList1', chunkList1, put);
-    // 将这个任务放入webWorker中
+    //todo 将这个任务放入webWorker中
     for (let i = 0; i < chunkList1.length; i++) {
       const chunk = chunkList1[i];
       formData.set('chunkIndex', String(i));
