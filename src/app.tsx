@@ -6,6 +6,7 @@ import stores from '@/store';
 import { history, RequestConfig } from '@umijs/max';
 // @ts-ignore
 import RightAvatar from '@/components/RightAvartar';
+import SocketHandler from '@/components/SocketHandler';
 import renderIcon from '@/config/iconMap';
 import InitialComponent from '@/InitialComponent';
 import { MenuInfo } from '@/pages/System/controller/menu.controller';
@@ -32,7 +33,6 @@ export function patchClientRoutes({ routes }: { routes: any[] }) {
   if (fetchedMenu.length > 0) {
     traverse(fetchedMenu, routes);
   }
-  console.log('patchClientRoutes...', routes);
 }
 export const layout: RunTimeLayoutConfig = () => {
   return {
@@ -139,7 +139,10 @@ const RTKProvider = ({ children }: { children: JSX.Element }) => (
   <Provider store={stores.store}>
     <PersistGate loading={null} persistor={stores.persistor}>
       <InitialComponent>
-        <CheckPermissions>{children}</CheckPermissions>
+        <>
+          <SocketHandler />
+          <CheckPermissions>{children}</CheckPermissions>
+        </>
       </InitialComponent>
     </PersistGate>
   </Provider>

@@ -4,20 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff6158f4-7083-4782-b669-832e86896240" name="变更" comment="feat: 动态菜单完成">
+    <list default="true" id="ff6158f4-7083-4782-b669-832e86896240" name="变更" comment="feat: 开启web-worker,spark-md5 没上传">
+      <change afterPath="$PROJECT_DIR$/public/libs/spark-md5.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.umirc.ts" beforeDir="false" afterPath="$PROJECT_DIR$/.umirc.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/InitialComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/InitialComponent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CusFormItem/ItemUpload.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CusFormItem/ItemUpload.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RightAvartar/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RightAvartar/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/constants.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/pathName.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/pathName.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/declare/utils/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/declare/utils/index.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useUpload.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useUpload.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Home/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/request/AxiosConfig.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/request/AxiosConfig.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/tools.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/tools.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -168,6 +164,7 @@
       <workItem from="1691801571580" duration="14469000" />
       <workItem from="1691982603629" duration="12842000" />
       <workItem from="1692057932136" duration="6936000" />
+      <workItem from="1692234452500" duration="13877000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 添加Dockerfile">
       <option name="closed" value="true" />
@@ -289,7 +286,15 @@
       <option name="project" value="LOCAL" />
       <updated>1691847485806</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="feat: 开启web-worker,spark-md5 没上传">
+      <option name="closed" value="true" />
+      <created>1692165464735</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1692165464735</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -321,6 +326,9 @@
     <MESSAGE value="feat: 动态菜单功能" />
     <MESSAGE value="feat: 插件读取page下的index文件" />
     <MESSAGE value="feat: 菜单侧边栏icon" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 菜单侧边栏icon" />
+    <MESSAGE value="feat: 大文件上传、断点续传、秒传" />
+    <MESSAGE value="feat: 开启web-worker" />
+    <MESSAGE value="feat: 开启web-worker,spark-md5 没上传" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 开启web-worker,spark-md5 没上传" />
   </component>
 </project>

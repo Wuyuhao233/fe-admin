@@ -1,7 +1,12 @@
 import { Modal } from 'antd';
-
+import dayjs from 'dayjs';
 const { confirm } = Modal;
-
+/**
+ * 时间戳转YYYY-MM-DD HH:mm:ss
+ */
+export const timestampToTime = (timestamp: number) => {
+  return dayjs(timestamp).format('YYYY-MM-DD HH:mm:ss');
+};
 /**
  * easyConfirm
  *

@@ -1,12 +1,14 @@
 import { authReducer } from '@/store/auth';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 // @ts-ignore
+import { socketReducer } from '@/store/ws';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 // 自定义的reducer
 const reducer = combineReducers({
   auth: authReducer,
+  socket: socketReducer,
 });
 // 持久化的reducer
 const persistConfig = {
