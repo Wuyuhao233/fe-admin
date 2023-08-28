@@ -42,12 +42,13 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
-          name: ${{ env.IMAGE_NAME }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ env.IMAGE_TAG }}
+          tags: ${{ env.IMAGE_NAME }}/${{ env.IMAGE_TAG }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
+          secrets: |
+            GIT_AUTH_TOKEN=${{ secrets.DOCKER_PASSWORD }}
 
       - name: Move cache
         run: |
