@@ -259,7 +259,7 @@ const UserList: React.FC<unknown> = () => {
           return typeof item === 'string' ? (
             '-'
           ) : (
-            <Tag color="blue" key={item.id}>
+            <Tag color="success" key={item.id}>
               {item.title}
             </Tag>
           );

@@ -4,17 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff6158f4-7083-4782-b669-832e86896240" name="变更" comment="feat: 开启web-worker,spark-md5 没上传">
-      <change afterPath="$PROJECT_DIR$/public/libs/spark-md5.min.js" afterDir="false" />
+    <list default="true" id="ff6158f4-7083-4782-b669-832e86896240" name="变更" comment="feat: docker 自动部署">
+      <change afterPath="$PROJECT_DIR$/config/env.config.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.umirc.ts" beforeDir="false" afterPath="$PROJECT_DIR$/.umirc.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/InitialComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/InitialComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Home/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/tools.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/tools.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/env.config.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -329,6 +323,8 @@
     <MESSAGE value="feat: 大文件上传、断点续传、秒传" />
     <MESSAGE value="feat: 开启web-worker" />
     <MESSAGE value="feat: 开启web-worker,spark-md5 没上传" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 开启web-worker,spark-md5 没上传" />
+    <MESSAGE value="feat: 开启web-socket" />
+    <MESSAGE value="feat: docker 自动部署" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: docker 自动部署" />
   </component>
 </project>

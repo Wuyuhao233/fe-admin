@@ -1,51 +1,58 @@
-#! /bin/sh -e
+ ! /bin/sh -e
 
 cat >> /etc/nginx/conf.d/default.conf <<EOF
 
-  server {
-    listen      80;
-    gzip on;
-    gzip_min_length 1k;
-    gzip_buffers 4 16k;
-    #gzip_http_version 1.0;
-    gzip_comp_level 2;
-    gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;
-    gzip_vary off;
-    gzip_disable "MSIE [1-6].";
 
-    proxy_read_timeout 600;
+  server{
+         listen       80;
+          listen  [::]:80;
+          server_name  localhost;
+          #access_log  /var/log/nginx/host.access.log  main;
 
-    location / {
-        add_header Access-Control-Allow-Origin *;
-        add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
-        add_header Access-Control-Allow-Headers 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization';
-        if (\$request_filename ~* .*\.(?:htm|html)$)
-		    {
-			    add_header Cache-Control "private, no-store, no-cache, must-revalidate, proxy-revalidate";
-		    }
+        root /app/www;
+        location /ff{
+                rewrite ^/ff(.*)$ $1 break;
+                add_header Content-Type application/json;
+                proxy_pass http://42.193.237.23:3333;
+                proxy_set_header Host \$host;
+                proxy_set_header X-Real-IP \$remote_addr;
+                proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        }
 
-        root /app/www/;
-        index index.html;
-        client_max_body_size  500m;
+        location ^~/{
+                alias /app/www/;
+                index index.html;
+                add_header Content-Type text/html;
+        }
+  }
+    server{
+          listen       3001;
+          listen  [::]:3001;
+          server_name  localhost2;
+          #access_log  /var/log/nginx/host.access.log  main;
+
+          root /app/www;
+           location /abc {
+                          alias /app/www/;
+                          index test.html;
+                          add_header Content-Type text/html;
+            }
+          location /ff{
+                  rewrite ^/ff(.*)$ $1 break;
+                  add_header Content-Type application/json;
+                  proxy_pass http://42.193.237.23:3333;
+                  proxy_set_header Host \$host;
+                  proxy_set_header X-Real-IP \$remote_addr;
+                  proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+          }
+
+          location ^~/{
+                  try_files \$uri \$uri /index.html;
+                 add_header Content-Type text/html;
+          }
     }
-
-    location /api {
-        proxy_pass  $SERVER_URL;
-        proxy_set_header Host \$host;
-        proxy_set_header X-Real-IP \$remote_addr;
-        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-    }
-
-    location /file/ {
-        proxy_pass $FILE_URL;
-        proxy_set_header Host \$host;
-        proxy_set_header X-Real-IP \$remote_addr;
-        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-    }
- }
-
 EOF
-
-echo "starting web server"
-
-nginx -g 'daemon off;'
+ 
+ echo "starting web server"
+ 
+ nginx -g 'daemon off;'       

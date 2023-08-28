@@ -4,26 +4,42 @@
 // 更多信息见文档：https://umijs.org/docs/api/runtime-config#getinitialstate
 import stores from '@/store';
 import { history, RequestConfig } from '@umijs/max';
+import settings from '../config/defaultSettings';
 // @ts-ignore
-import RightAvatar from '@/components/RightAvartar';
+import {
+  AvatarDropdown,
+  AvatarName,
+  LangSelect,
+  ThemeChanger,
+} from '@/components/rightContent';
 import SocketHandler from '@/components/SocketHandler';
 import renderIcon from '@/config/iconMap';
+import { User } from '@/declare/User';
 import InitialComponent from '@/InitialComponent';
 import { MenuInfo } from '@/pages/System/controller/menu.controller';
 import { AxiosConfig } from '@/request/AxiosConfig';
 import { traverse } from '@/request/fetch';
 import { RunTimeLayoutConfig } from '@@/plugin-layout/types';
+import type { Settings as LayoutSettings } from '@ant-design/pro-components';
+import { SettingDrawer } from '@ant-design/pro-components';
 import { message } from 'antd';
 import { createElement, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import { EnvConfig } from '../config/env.config';
+/**
+ * 初始化数据
+ */
 export async function getInitialState(): Promise<{
-  name: string;
-  loginToken: string;
+  settings?: Partial<LayoutSettings>;
+  user?: User;
 }> {
   console.log('getInitialState... ');
-  const loginToken = localStorage.getItem('access_token') || '';
-  return { name: '@umijs/max', loginToken };
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  return {
+    settings: settings as Partial<LayoutSettings>,
+    user: user as User,
+  };
 }
 let fetchedMenu: MenuInfo[] = [];
 // note 不要做成异步的，否则会导致路由失效
@@ -34,13 +50,16 @@ export function patchClientRoutes({ routes }: { routes: any[] }) {
     traverse(fetchedMenu, routes);
   }
 }
-export const layout: RunTimeLayoutConfig = () => {
+export const layout: RunTimeLayoutConfig = ({
+  initialState,
+  setInitialState,
+}) => {
   return {
-    layout: 'mix',
-    logo: 'https://img.alicdn.com/tfs/TB1YHEpwUT1gK0jSZFhXXaAtVXa-28-27.svg',
-    menu: {
-      locale: false,
-    },
+    // layout: 'mix',
+    // logo: 'https://img.alicdn.com/tfs/TB1YHEpwUT1gK0jSZFhXXaAtVXa-28-27.svg',
+    // menu: {
+    //   locale: false,
+    // },
     menuDataRender: (menuData) => {
       console.log('menuDataRender...', menuData);
       // note 需要这样处理，否则菜单收缩会有异常，icon 没有完全收缩
@@ -67,9 +86,37 @@ export const layout: RunTimeLayoutConfig = () => {
         </span>
       );
     },
-    rightContentRender: (headerProps, dom, props) => <RightAvatar {...props} />,
-    noFound: <div>not found page</div>,
-    unAccessible: <div>no access</div>,
+    actionsRender: () => [
+      <ThemeChanger key="theme" />,
+      <LangSelect key="SelectLang" />,
+    ],
+    avatarProps: {
+      src: initialState?.user?.avatar,
+      title: <AvatarName />,
+      render: (_, avatarChildren) => {
+        return <AvatarDropdown>{avatarChildren}</AvatarDropdown>;
+      },
+    },
+    childrenRender: (children) => {
+      // if (initialState?.loading) return <PageLoading />;
+      return (
+        <>
+          {children}
+          <SettingDrawer
+            disableUrlParams
+            enableDarkTheme
+            settings={initialState?.settings}
+            onSettingChange={(settings) => {
+              setInitialState((preInitialState) => ({
+                ...preInitialState,
+                settings,
+              }));
+            }}
+          />
+        </>
+      );
+    },
+    ...initialState?.settings,
   };
 };
 
@@ -84,7 +131,8 @@ export function render(oldRender: any) {
   // 所以需要在patchClientRoutes中进行处理
   // 由于登录后会刷新页面，所以登录页面无需获取菜单
   if (localStorage.getItem('refresh_token')) {
-    fetch('http://localhost:3333/api/v1/menu/getCurUserMenu', {
+    const url = EnvConfig.getFetchUrl();
+    fetch(url, {
       method: 'GET',
       headers: {
         // 添加  token
@@ -135,18 +183,27 @@ const CheckPermissions = ({
   }, [accessToken, location.pathname]);
   return children;
 };
-const RTKProvider = ({ children }: { children: JSX.Element }) => (
-  <Provider store={stores.store}>
-    <PersistGate loading={null} persistor={stores.persistor}>
-      <InitialComponent>
-        <>
-          <SocketHandler />
-          <CheckPermissions>{children}</CheckPermissions>
-        </>
-      </InitialComponent>
-    </PersistGate>
-  </Provider>
-);
+/**
+ * RTK Provider --全局store，状态管理
+ * PersistGate --持久化
+ * ConfigProvider --antd全局配置
+ * @param children
+ * @constructor
+ */
+const RTKProvider = ({ children }: { children: JSX.Element }) => {
+  return (
+    <Provider store={stores.store}>
+      <PersistGate loading={null} persistor={stores.persistor}>
+        <InitialComponent>
+          <>
+            <SocketHandler />
+            <CheckPermissions>{children}</CheckPermissions>
+          </>
+        </InitialComponent>
+      </PersistGate>
+    </Provider>
+  );
+};
 /**
  * 修改交给 react-dom 渲染时的根组件。
  * args 包含：

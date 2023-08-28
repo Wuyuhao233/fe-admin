@@ -1,4 +1,5 @@
 module.exports = {
+  darkMode: 'class',
   // note 设置为true，每个样式都会设置为 !important
   // important: true,
   content: [

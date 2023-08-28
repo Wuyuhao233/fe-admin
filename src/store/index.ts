@@ -1,6 +1,7 @@
 import { authReducer } from '@/store/auth';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 // @ts-ignore
+import { themeReducer } from '@/store/theme';
 import { socketReducer } from '@/store/ws';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -9,6 +10,7 @@ import storage from 'redux-persist/lib/storage';
 const reducer = combineReducers({
   auth: authReducer,
   socket: socketReducer,
+  theme: themeReducer,
 });
 // 持久化的reducer
 const persistConfig = {

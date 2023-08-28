@@ -21,4 +21,142 @@
   .anticon {
     vertical-align: middle;
   }
+  //给antd 添加css变量
+  //header
+  .ant-layout-header {
+    background-color: var(--ant-header-bg-color);
+
+    h1 {
+      color: var(--ant-title-color);
+    }
+  }
+  //  图标
+  .icon,
+  .anticon {
+    fill: var(--ant-anticon-color);
+    color: var(--ant-anticon-color);
+  }
+
+  /**
+    * 侧边栏
+      整体背景色--ant-sider-bg-color
+      未选中的背景色--ant-sider-bg-color
+      未选中字体颜色--ant-sider-text-color
+      选中的字体颜色--ant-sider-selected-text-color
+      选中的背景色--ant-sider-selected-bg-color
+   */
+  .ant-layout-sider-children {
+    padding: 0;
+    background-color: var(--ant-sider-bg-color);
+
+    .ant-menu-submenu-arrow,
+    a,
+    .ant-menu-title-content {
+      color: var(--ant-sider-text-color);
+    }
+
+    .ant-menu-submenu-arrow:hover,
+    a:hover,
+    .ant-menu-title-content:hover {
+      color: var(--ant-sider-selected-text-color);
+    }
+
+    .ant-menu-sub {
+      background-color: var(--ant-sider-bg-color);
+    }
+
+    .ant-menu-item {
+      background-color: var(--ant-sider-bg-color);
+    }
+
+    .ant-menu-submenu-selected {
+      .ant-menu-title-content {
+        color: var(--ant-sider-selected-text-color) !important;
+      }
+
+      & > div {
+        .icon,
+        .anticon {
+          fill: var(--ant-sider-selected-text-color);
+          color: var(--ant-sider-selected-text-color);
+        }
+      }
+      //选中的背景色仍为主题色
+      background-color: var(--ant-sider-bg-color);
+
+      .ant-menu-item-selected {
+        background-color: var(--ant-sider-selected-bg-color) !important;
+
+        a {
+          color: var(--ant-sider-selected-text-color) !important;
+        }
+
+        .icon,
+        .anticon {
+          fill: var(--ant-sider-selected-text-color);
+          color: var(--ant-sider-selected-text-color);
+        }
+      }
+    }
+  }
+
+  .ant-pro-base-menu-inline-submenu-has-icon > .ant-menu-sub {
+    padding: 0;
+  }
+
+  /**
+    * 内容区域
+ */
+  main.ant-layout-content,
+  .ant-pro-page-container {
+    background-color: var(--ant-content-bg-color);
+
+    .ant-pro-card,
+    .ant-page-header,
+    .ant-table-cell,
+    .ant-table-wrapper,
+    .ant-input-affix-wrapper,
+    input,
+    .ant-pagination-item-active,
+    .ant-table-row-expand-icon {
+      background-color: var(--ant-card-bg-color);
+      color: var(--ant-sider-text-color);
+    }
+
+    .anticon,
+    .icon {
+      fill: var(--ant-sider-text-color);
+      color: var(--ant-sider-text-color);
+    }
+
+    .ant-form-item-label > label,
+    .ant-pagination,
+    .ant-page-header-heading-title,
+    .ant-breadcrumb,
+    .ant-breadcrumb a,
+    .ant-breadcrumb-separator,
+    .ant-breadcrumb li:last-child {
+      color: var(--ant-sider-text-color);
+    }
+  }
+}
+
+/**
+   * 弹窗等
+  */
+.ant-table-row-expand-icon,
+.ant-modal-title,
+.ant-form-item-label > label,
+.ant-modal-content,
+.ant-pro-card,
+.ant-input-affix-wrapper,
+input,
+.ant-select-selector {
+  background-color: var(--ant-card-bg-color) !important;
+  color: var(--ant-sider-text-color) !important;
+}
+
+div.ant-modal-header {
+  background: var(--ant-card-bg-color) !important;
+  color: var(--ant-sider-text-color) !important;
 }
