@@ -1,13 +1,13 @@
-name: Docker-Build-Image
+name: Docker-Build-Publish
 
 on:
   push:
     branches: ['main']
 
 env:
+  REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  IMAGE_TAG: ${{ github.run_number }}-${{ github.sha }}
-  REGISTRY:  DockerHub
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,11 +15,13 @@ jobs:
       contents: read
       packages: write
       id-token: write
+
     steps:
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Docker buildx
+        uses: docker/setup-buildx-action@79abd3f86f79a9d68a23c75a09a9a85889262adf
 
       - name: Cache Docker layers
         uses: actions/cache@v2
@@ -28,46 +30,35 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
+
+      - name: Log into registry ${{ env.REGISTRY }}
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v2
+      - name: Build and push Docker image
+        id: build-and-push
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
-          username: ${{ secrets.DOCKER_NAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: Build and push
-        uses: docker/build-push-action@v4
-        with:
+          context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ env.IMAGE_NAME }}/${{ env.IMAGE_TAG }}
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
-          secrets: |
-            GIT_AUTH_TOKEN=${{ secrets.DOCKER_PASSWORD }}
 
       - name: Move cache
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
-      - name: Server_PASSWORD LOGIN
-        # You may pin to the exact commit or the version.
-        # uses: D3rHase/ssh-command-action@981832f056c539720824429fa91df009db0ee9cd
-        uses: appleboy/ssh-action@master
-        with:
-          # hostname / IP of the server
-          HOST: ${{ secrets.SERVER_IP }}
-          # ssh port of the server
-          PORT: 22 # optional, default is 22
-          # user of the server
-          USERNAME: root
-          # private ssh key registered on the server
-          PASSWORD: ${{ secrets.PASSWORD }}
-          # command to be executed
-          COMMAND: cd /root && ./run.sh
 
