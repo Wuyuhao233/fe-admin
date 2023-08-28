@@ -157,7 +157,7 @@
       <workItem from="1691982603629" duration="12842000" />
       <workItem from="1692057932136" duration="6936000" />
       <workItem from="1692234452500" duration="13877000" />
-      <workItem from="1693227335501" duration="562000" />
+      <workItem from="1693227335501" duration="1380000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 添加Dockerfile">
       <option name="closed" value="true" />
@@ -303,7 +303,15 @@
       <option name="project" value="LOCAL" />
       <updated>1693227490937</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="feat: docker 自动部署">
+      <option name="closed" value="true" />
+      <created>1693227980954</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1693227980954</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
