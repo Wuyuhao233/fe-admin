@@ -72,6 +72,6 @@ jobs:
           # user of the server
           USER: ${{ secrets.SERVER_USER }}
           # private ssh key registered on the server
-          PASSWORD: ${{ secrets.SERVER_PASSWORD }}
+          PRIVATE_SSH_KEY: ${{ secrets.SERVER_PASSWORD }}
           # command to be executed
           COMMAND: cd /root && ./run.sh
