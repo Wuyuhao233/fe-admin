@@ -61,14 +61,13 @@ jobs:
 #          rm -rf /tmp/.buildx-cache
 #          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
-      - name: SSH Command
-        uses: D3rHase/ssh-command-action@v0.2.1
+      - name: 更新服务器
+        uses: appleboy/ssh-action@v0.1.10
         with:
-          HOST: ${{ secrets.SERVER_IP }}
-          PORT: 22 # optional, default is 22
-          # user of the server
-          USER: root
-          # private ssh key registered on the server
-          PRIVATE_SSH_KEY: ${{ secrets.SERVER_KEY }}
-          # command to be executed
-          COMMAND: cd /root && ./run.sh
+          host: ${{ secrets.SERVER_IP }} # 服务器ip地址 ; 需要去仓库的 settings/secrets/actions 去创建
+          username: ${{ secrets.SERVER_USER }} # 服务器用户名称；需要去仓库的 settings/secrets/actions 去创建
+          password: ${{ secrets.SERVER_PASSWORD }} # 服务器密码；需要去仓库的 settings/secrets/actions 去创建
+          script: | # 重启更新镜像
+            cd /root
+            ./run.sh
+
