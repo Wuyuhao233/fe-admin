@@ -1,6 +1,5 @@
 import { uploadFile } from '@/utils/upload';
 import { Upload } from 'antd';
-import ImgCrop from 'antd-img-crop';
 import { UploadProps } from 'antd/es/upload/interface';
 import { CSSProperties, useState } from 'react';
 export interface FormItemProps<T extends any> extends UploadProps {
@@ -43,27 +42,27 @@ const ItemUpload = ({
   };
   const [file, setFile] = useState<any>();
   return (
-    <ImgCrop>
-      <Upload
-        listType="picture-card"
-        customRequest={customRequest}
-        onChange={({ fileList }) => {
-          // note 使用fileList[0]，而不是file，因为fileList 会被remove处理，而file不会
-          setFile(fileList[0]);
-          // note 将文件id传递给表单
-          onChange?.(fileList[0]?.response?.id);
-        }}
-        maxCount={1}
-        onRemove={() => {
-          console.log('remove');
-          setFile(undefined);
-        }}
-        {...rest}
-      >
-        {/*当有文件时，不显示上传按钮*/}
-        {file ? null : '+'}
-      </Upload>
-    </ImgCrop>
+    // <ImgCrop>
+    <Upload
+      listType="picture-card"
+      customRequest={customRequest}
+      onChange={({ fileList }) => {
+        // note 使用fileList[0]，而不是file，因为fileList 会被remove处理，而file不会
+        setFile(fileList[0]);
+        // note 将文件id传递给表单
+        onChange?.(fileList[0]?.response?.id);
+      }}
+      maxCount={1}
+      onRemove={() => {
+        console.log('remove');
+        setFile(undefined);
+      }}
+      {...rest}
+    >
+      {/*当有文件时，不显示上传按钮*/}
+      {file ? null : '+'}
+    </Upload>
+    // </ImgCrop>
   );
 };
 // <ImgCrop showGrid rotationSlider showReset>

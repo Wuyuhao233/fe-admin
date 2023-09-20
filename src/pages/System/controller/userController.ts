@@ -16,8 +16,8 @@ class UserController {
     return await userService.getUserList<User[]>(pageInfo);
   }
 
-  async deleteUser(id: number | string) {
-    return await userService.deleteUser(Number(id));
+  async deleteUser(id: string) {
+    return await userService.deleteUser(id);
   }
 
   async modifyUser(user: User) {

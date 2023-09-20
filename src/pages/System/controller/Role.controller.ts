@@ -1,4 +1,5 @@
 import { IBase, IBaseDto } from '@/declare';
+import { IFunction } from '@/pages/System/controller/function.controller';
 import { FlatMenuInfo } from '@/pages/System/controller/menu.controller';
 import { http } from '@/request/http';
 export interface RoleInfo extends IBase {
@@ -6,6 +7,7 @@ export interface RoleInfo extends IBase {
   title: string;
   menus?: FlatMenuInfo[] | string[];
   menuIds?: string[];
+  functions?: IFunction[] | string[];
 }
 type RoleDto = IBaseDto;
 class RoleController {

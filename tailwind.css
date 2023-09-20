@@ -20,3 +20,9 @@
 .full {
   @apply w-full h-full;
 }
+
+.pfull {
+  /*  100vh-48px */
+  height: calc(100vh - 108px);
+  box-sizing: content-box;
+}

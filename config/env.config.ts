@@ -12,4 +12,9 @@ export class EnvConfig {
       ? 'http://localhost:3333/api/v1/menu/getCurUserMenu'
       : 'http://42.193.237.23:3333/api/v1/menu/getCurUserMenu';
   }
+  static getRefreshTokenUrl() {
+    return process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3333/api/v1/auth/refreshToken'
+      : 'http://42.193.237.23:3333/api/v1/auth/refreshToken';
+  }
 }

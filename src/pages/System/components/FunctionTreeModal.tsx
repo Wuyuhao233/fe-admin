@@ -1,11 +1,12 @@
-import MenuController, {
-  MenuInfo,
-} from '@/pages/System/controller/menu.controller';
+import {
+  functionController,
+  IFunction,
+} from '@/pages/System/controller/function.controller';
 import { useRequest } from '@@/exports';
 import { message, Modal, Tree } from 'antd';
 import { isArray } from 'lodash';
 import { useEffect, useState } from 'react';
-const { getMenuTree } = MenuController;
+const { getFunctionTree } = functionController;
 // types
 type TreeProps = React.ComponentProps<typeof Tree>;
 interface TreeModalProps {
@@ -14,15 +15,15 @@ interface TreeModalProps {
   onChange?: (e: any) => void;
   value?: any;
 }
-const TreeModal = ({
+const FunctionTreeModal = ({
   visible,
   setVisible,
   onChange,
   value,
 }: TreeModalProps) => {
-  const [treeData, setTreeData] = useState<MenuInfo[]>([]);
+  const [treeData, setTreeData] = useState<IFunction[]>([]);
   const [checkKeys, setCheckKeys] = useState<React.Key[]>([]);
-  useRequest(getMenuTree, {
+  useRequest(getFunctionTree, {
     onSuccess: (data) => {
       if (data.code === 200) {
         setTreeData(data.data);
@@ -84,4 +85,4 @@ const TreeModal = ({
     </>
   );
 };
-export default TreeModal;
+export default FunctionTreeModal;

@@ -4,10 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff6158f4-7083-4782-b669-832e86896240" name="变更" comment="feat: 修改docker image_name">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/docker-publish.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/docker-publish.yml" afterDir="false" />
+    <list default="true" id="ff6158f4-7083-4782-b669-832e86896240" name="变更" comment="feat: 权限功能">
+      <change afterPath="$PROJECT_DIR$/src/components/CusFormItem/CusTree.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/System/components/FunctionTreeModal.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/System/controller/function.controller.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/axios.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/normalFetch.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/env.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/config/env.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CusFormItem/ItemUpload.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CusFormItem/ItemUpload.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/config/pathName.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/pathName.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Home/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/System/Menu/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/System/Menu/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/System/Permission/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/System/Permission/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/System/Role/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/System/Role/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/System/User/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/System/User/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/System/components/TreeModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/System/components/TreeModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/System/controller/Role.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/System/controller/Role.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/System/controller/menu.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/System/controller/menu.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/System/controller/userController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/System/controller/userController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/request/AxiosConfig.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/request/AxiosConfig.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/login/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/login/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/user/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/user/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.css" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +54,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectId" id="2Qatebtuk8VDru8EvzfvaBO10U4" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -47,7 +73,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/emos_admin/src/pages&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/emos_admin/src/pages/System/components&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -70,6 +96,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\emos_admin\src\pages\System\components" />
+      <recent name="E:\emos_admin\src\components\CusFormItem" />
       <recent name="E:\emos_admin\src\pages" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -163,7 +191,21 @@
       <workItem from="1693270512915" duration="6147000" />
       <workItem from="1693354473082" duration="592000" />
       <workItem from="1693357474309" duration="163000" />
-      <workItem from="1693360335949" duration="35000" />
+      <workItem from="1693360335949" duration="8154000" />
+      <workItem from="1693526840646" duration="74000" />
+      <workItem from="1693527557534" duration="4317000" />
+      <workItem from="1693533703468" duration="1132000" />
+      <workItem from="1693535122765" duration="594000" />
+      <workItem from="1693539296473" duration="2092000" />
+      <workItem from="1693874681575" duration="595000" />
+      <workItem from="1694225487648" duration="684000" />
+      <workItem from="1694240910813" duration="3921000" />
+      <workItem from="1694565752122" duration="7033000" />
+      <workItem from="1694738063302" duration="12705000" />
+      <workItem from="1694823026064" duration="14092000" />
+      <workItem from="1694950902700" duration="2658000" />
+      <workItem from="1694954224970" duration="310000" />
+      <workItem from="1695169641353" duration="344000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 添加Dockerfile">
       <option name="closed" value="true" />
@@ -389,7 +431,79 @@
       <option name="project" value="LOCAL" />
       <updated>1693279942254</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="feat: 连接服务器自动部署">
+      <option name="closed" value="true" />
+      <created>1693360641384</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1693360641384</updated>
+    </task>
+    <task id="LOCAL-00030" summary="feat: 连接服务器自动部署">
+      <option name="closed" value="true" />
+      <created>1693361189205</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1693361189205</updated>
+    </task>
+    <task id="LOCAL-00031" summary="feat: 连接服务器自动部署">
+      <option name="closed" value="true" />
+      <created>1693362529689</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1693362529689</updated>
+    </task>
+    <task id="LOCAL-00032" summary="feat: 连接服务器自动部署">
+      <option name="closed" value="true" />
+      <created>1693363196438</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1693363196438</updated>
+    </task>
+    <task id="LOCAL-00033" summary="feat: 连接服务器自动部署">
+      <option name="closed" value="true" />
+      <created>1693363606624</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1693363606624</updated>
+    </task>
+    <task id="LOCAL-00034" summary="feat: 修改秘钥">
+      <option name="closed" value="true" />
+      <created>1693365042253</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1693365042253</updated>
+    </task>
+    <task id="LOCAL-00035" summary="feat: 修改秘钥">
+      <option name="closed" value="true" />
+      <created>1693366712574</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1693366712574</updated>
+    </task>
+    <task id="LOCAL-00036" summary="feat: modify">
+      <option name="closed" value="true" />
+      <created>1693367376107</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1693367376107</updated>
+    </task>
+    <task id="LOCAL-00037" summary="feat: 手动部署">
+      <option name="closed" value="true" />
+      <created>1693375118332</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1693375118332</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -407,8 +521,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 添加Dockerfile" />
-    <MESSAGE value="feat: 修改docker-publish" />
     <MESSAGE value="feat: 修改docker登录信息" />
     <MESSAGE value="feat: finish login&amp;register page" />
     <MESSAGE value="feat: token刷新，需要返回初始的响应" />
@@ -429,6 +541,11 @@
     <MESSAGE value="feat: 修改docker 地址" />
     <MESSAGE value="feat: 修改docker login" />
     <MESSAGE value="feat: 修改docker image_name" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 修改docker image_name" />
+    <MESSAGE value="feat: 连接服务器自动部署" />
+    <MESSAGE value="feat: 修改秘钥" />
+    <MESSAGE value="feat: modify" />
+    <MESSAGE value="feat: 手动部署" />
+    <MESSAGE value="feat: 权限功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 权限功能" />
   </component>
 </project>

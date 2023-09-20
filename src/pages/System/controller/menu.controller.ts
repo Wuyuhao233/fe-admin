@@ -29,6 +29,14 @@ export interface MenuDto {
   orderNumber?: number;
   url?: string;
   show?: boolean;
+  apis?: any[];
+}
+export interface IApis {
+  moduleName: string;
+  children: {
+    path: string;
+    method: string;
+  }[];
 }
 export class MenuController {
   static instance: MenuController;
@@ -94,6 +102,10 @@ export class MenuController {
    */
   async getMenuTree() {
     return await http.get<MenuInfo[]>('/menu/getMenuTree');
+  }
+
+  async getApis() {
+    return await http.get<IApis[]>('/menu/allRoutes');
   }
 }
 

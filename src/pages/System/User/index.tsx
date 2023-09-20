@@ -60,14 +60,7 @@ const UserList: React.FC<unknown> = () => {
     deleteUser,
     actionRef.current?.reload,
   );
-  const { run: updateUser, loading: updateLoading } = useReqWithMsg(
-    modifyUser,
-    actionRef.current?.reload,
-  );
-  const { run: register, loading: registeroading } = useReqWithMsg(
-    registerUser,
-    actionRef.current?.reload,
-  );
+
   // 编辑表单的初始化
   const [editFormValues, setEditFormValues] = useState<User>();
   const [editType, setEditType] = useState<'add' | 'edit'>('add');
@@ -117,6 +110,20 @@ const UserList: React.FC<unknown> = () => {
       validateStatus: '',
     });
   }
+  const { run: updateUser, loading: updateLoading } = useReqWithMsg(
+    modifyUser,
+    () => {
+      actionRef.current?.reload();
+      closeModal();
+    },
+  );
+  const { run: register, loading: registerLoading } = useReqWithMsg(
+    registerUser,
+    () => {
+      actionRef.current?.reload();
+      closeModal();
+    },
+  );
   const columns: ProDescriptionsItemProps<User>[] = [
     {
       title: 'id',
@@ -309,7 +316,14 @@ const UserList: React.FC<unknown> = () => {
             编辑
           </Link>
           <Divider type="vertical" />
-          <Link onClick={() => deleteUserById(record.id)}>删除</Link>
+          <Link
+            onClick={() => {
+              console.log('record', record);
+              deleteUserById(record.id);
+            }}
+          >
+            删除
+          </Link>
         </>
       ),
     },
@@ -352,10 +366,11 @@ const UserList: React.FC<unknown> = () => {
         ]}
         request={async (params) => {
           const res = await queryUserList({
+            ...params,
             pageSize: params.pageSize || 15,
             current: params.current || 1,
           });
-          console.log('queryUserList', res);
+          console.log('queryUserList', res, params);
           return {
             data: res.data,
             success: res.success,
@@ -390,7 +405,7 @@ const UserList: React.FC<unknown> = () => {
         modalVisible={createModalVisible}
       >
         <ProTable<User, RegisterDTO | User>
-          loading={updateLoading || registeroading}
+          loading={updateLoading || registerLoading}
           formRef={forRef}
           onSubmit={async (value) => {
             console.log('value', value);
@@ -401,7 +416,6 @@ const UserList: React.FC<unknown> = () => {
               (value as User).id = editFormValues?.id as string;
               await updateUser(value as User);
             }
-            closeModal();
           }}
           rowKey="id"
           type="form"

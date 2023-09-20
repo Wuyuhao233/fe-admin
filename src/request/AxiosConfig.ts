@@ -3,7 +3,7 @@ import { http } from '@/request/http';
 import { history } from '@umijs/max';
 import { message } from 'antd';
 // @ts-ignore
-import { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { AxiosRequestConfig } from 'axios';
 interface RequestQueue {
   config: AxiosRequestConfig;
   resolve: (value?: AxiosRequestConfig) => void;
@@ -13,7 +13,9 @@ export class AxiosConfig {
   static isRefreshing = false;
   static queue: RequestQueue[] = [];
   static timeout: 5000;
-  static requestInterceptor(config: AxiosRequestConfig): AxiosRequestConfig {
+  static requestInterceptor(
+    config: AxiosRequestConfig,
+  ): Promise<unknown> | AxiosRequestConfig {
     if (config.url !== '/auth/refreshToken' && AxiosConfig.isRefreshing) {
       // add request to queue
       console.log('add request to queue');
@@ -25,13 +27,14 @@ export class AxiosConfig {
         });
       });
     }
-    if (!NO_NEED_TOKEN_URL.includes(config.url)) {
+    if (!NO_NEED_TOKEN_URL.includes(<string>config.url)) {
       // add token to header
+      if (!config.headers) config.headers = {};
       config.headers.Authorization =
         'Bearer ' + localStorage.getItem('access_token');
     }
     // 重新发送不需要加前缀
-    if (!config.url.startsWith(PREFIX)) {
+    if (config.url && !config.url.startsWith(PREFIX)) {
       config.url = PREFIX + config.url;
     }
     return { ...config };
@@ -43,7 +46,7 @@ export class AxiosConfig {
    *  3. refresh_token获取到新的token后，更新token，将队列中的请求重新发送
    * 长效token过期后，返回401，回到登录页面
    */
-  static responseInterceptor(response: AxiosResponse): AxiosResponse {
+  static responseInterceptor(response: any): any {
     // 将重新发送
     if (response.data.code === 99998) {
       console.log('responseInterceptor');
@@ -58,6 +61,10 @@ export class AxiosConfig {
           AxiosConfig.refreshToken();
         }
       });
+    }
+    // 403 消息提示
+    if (response.data.code === 403) {
+      message.error('没有权限');
     }
     return response;
   }
@@ -96,12 +103,12 @@ export class AxiosConfig {
               const { config, resolve, type } = req;
               console.log('resend...', req);
               if (type === 'response') {
-                http.common(config).then((res: any) => {
+                http.common(config as any).then((res: any) => {
                   console.log('resolve...', res);
                   resolve(res);
                 });
               }
-              if (type === 'request') {
+              if (type === 'request' && config.headers) {
                 config.headers.Authorization = `Bearer ${localStorage.getItem(
                   'access_token',
                 )}`;

@@ -1,6 +1,7 @@
 import MenuTree from '@/components/CusFormItem/MenuTree';
 import { useReqWithMsg } from '@/hooks/useReqWithMsg';
 import CreateForm from '@/pages/System/components/CreateForm';
+import FunctionTreeModal from '@/pages/System/components/FunctionTreeModal';
 import TreeModal from '@/pages/System/components/TreeModal';
 import RoleController, {
   RoleInfo,
@@ -29,6 +30,7 @@ const Role: React.FC<unknown> = () => {
   const [row, setRow] = useState<RoleInfo>();
   const [selectedRowsState, setSelectedRows] = useState<RoleInfo[]>([]);
   const [treeModal, setTreeModal] = useState(false);
+  const [functionVisible, setFunctionModal] = useState(false);
   const { run: deleteRole } = useReqWithMsg(
     deleteRoleById,
     actionRef.current?.reload,
@@ -124,6 +126,15 @@ const Role: React.FC<unknown> = () => {
             }}
           >
             分配菜单
+          </Link>
+          <Divider type="vertical" />
+          <Link
+            onClick={() => {
+              setEditFormValues(record);
+              setFunctionModal(true);
+            }}
+          >
+            分配权限
           </Link>
           <Divider type="vertical" />
           <Link
@@ -267,6 +278,22 @@ const Role: React.FC<unknown> = () => {
         setVisible={setTreeModal}
         value={editFormValues?.menus}
         onChange={onMenuChange}
+      />
+      <FunctionTreeModal
+        visible={functionVisible}
+        setVisible={setFunctionModal}
+        onChange={async (e) => {
+          if (editFormValues) {
+            const res = await update({
+              ...editFormValues,
+              functions: e,
+            });
+            if (res.code === 200) {
+              setFunctionModal(false);
+            }
+          }
+        }}
+        value={editFormValues?.functions}
       />
     </PageContainer>
   );

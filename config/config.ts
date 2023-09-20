@@ -19,7 +19,7 @@ export default defineConfig({
     dataField: '',
   },
   layout: {
-    title: '@umijs/max',
+    title: 'Huisman',
     ...defaultSettings,
   },
   routes,

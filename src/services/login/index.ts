@@ -15,7 +15,7 @@ const loginService = {
     return http.get<string>(`/auth/getMailCaptcha`, { email });
   },
   registerUser(registerInfo: RegisterDTO) {
-    return http.post('/auth/register', registerInfo);
+    return http.post('/user/register', registerInfo);
   },
 };
 export default loginService;

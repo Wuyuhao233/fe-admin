@@ -19,6 +19,7 @@ import InitialComponent from '@/InitialComponent';
 import { MenuInfo } from '@/pages/System/controller/menu.controller';
 import { AxiosConfig } from '@/request/AxiosConfig';
 import { traverse } from '@/request/fetch';
+import { refreshToken } from '@/utils/normalFetch';
 import { RunTimeLayoutConfig } from '@@/plugin-layout/types';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
 import { SettingDrawer } from '@ant-design/pro-components';
@@ -125,6 +126,7 @@ export const layout: RunTimeLayoutConfig = ({
  * @param oldRender
  */
 export function render(oldRender: any) {
+  console.log('root', document.getElementById('root'));
   console.log('render... ');
   //note render 后才有route
   // note 写在这里在推出登录后，再次登录，会导致菜单失效
@@ -132,24 +134,41 @@ export function render(oldRender: any) {
   // 由于登录后会刷新页面，所以登录页面无需获取菜单
   if (localStorage.getItem('refresh_token')) {
     const url = EnvConfig.getFetchUrl();
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        // 添加  token
-        // todo 改成refresh_token，需要后端支持
-        Authorization: 'Bearer ' + localStorage.getItem('refresh_token'),
-      },
-    }).then((res) => {
-      res.json().then((data) => {
-        console.log('fetch menuList...', data);
-        if (data.code === 200) {
-          fetchedMenu = data.data;
-        } else {
-          message.error('获取菜单失败');
-        }
+
+    const fetchAndRender = () => {
+      try {
+        fetch(url, {
+          method: 'GET',
+          headers: {
+            // 添加  token
+            // todo 改成refresh_token，需要后端支持
+            Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+          },
+        }).then((res) => {
+          res.json().then((data) => {
+            console.log('fetch menuList...', data);
+            if (data.code === 200) {
+              fetchedMenu = data.data;
+              oldRender();
+            } else {
+              message.error('重新获取菜单').then(() => {
+                refreshToken().then((r) => {
+                  if (r === 'success') {
+                    fetchAndRender();
+                  } else {
+                    oldRender();
+                  }
+                });
+              });
+            }
+          });
+        });
+      } catch (e: any) {
         oldRender();
-      });
-    });
+      }
+    };
+
+    fetchAndRender();
   } else {
     oldRender();
   }
@@ -212,7 +231,7 @@ const RTKProvider = ({ children }: { children: JSX.Element }) => {
  * plugin，运行时插件机制
  * history，history 实例
  */
-export function rootContainer(container: React.ReactNode, args: any) {
-  console.log('rootContainer... ', args);
+export function rootContainer(container: React.ReactNode) {
+  console.log('rootContainer... ', document.getElementById('root'));
   return createElement(RTKProvider, null, container);
 }

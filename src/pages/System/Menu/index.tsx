@@ -85,6 +85,7 @@ const Menu: React.FC<unknown> = () => {
       type: '',
     });
     setEditFormValues(undefined);
+    setType('0');
   }
   const refreshAfterAction = async (value?: MenuDto | MenuInfo) => {
     console.log('refreshAfterAction', value);
@@ -168,7 +169,6 @@ const Menu: React.FC<unknown> = () => {
       valueEnum: {
         1: { text: '目录' },
         2: { text: '菜单' },
-        3: { text: '按钮' },
       },
       fieldProps: {
         buttonStyle: 'solid',
@@ -182,8 +182,6 @@ const Menu: React.FC<unknown> = () => {
       dataIndex: 'route',
       valueType: 'text',
       hideInSearch: true,
-      // 按钮类型不显示
-      hideInForm: type === '3',
       formItemProps: {
         // note 设置表单的label
         label: (
@@ -218,8 +216,6 @@ const Menu: React.FC<unknown> = () => {
         });
         return map;
       },
-      //   按钮类型不显示
-      hideInForm: type === '3',
     },
     {
       title: '文件地址',
@@ -251,18 +247,9 @@ const Menu: React.FC<unknown> = () => {
       },
     },
     {
-      title: '权限代码',
-      dataIndex: 'authCode',
-      valueType: 'text',
-      // 按钮类型显示
-      hideInForm: type !== '3',
-    },
-    {
       title: '排序号',
       dataIndex: 'orderNumber',
       valueType: 'digit',
-      // 按钮类型不显示
-      hideInForm: type === '3',
     },
     {
       title: '创建时间',
@@ -422,10 +409,7 @@ const Menu: React.FC<unknown> = () => {
           <Button type="primary">批量审批</Button>
         </FooterToolbar>
       )}
-      <CreateForm
-        onCancel={() => handleModal({ visible: false, type: '' })}
-        modalVisible={modal.visible}
-      >
+      <CreateForm onCancel={closeModal} modalVisible={modal.visible}>
         <ProTable<MenuInfo, MenuDto>
           loading={updateLoading || addLoading}
           onSubmit={onSubmit}
