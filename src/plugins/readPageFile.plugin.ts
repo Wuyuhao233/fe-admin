@@ -21,7 +21,7 @@ export default (api: IApi) => {
         } else {
           // 将和page 的相对路径存储起来
           const p = filePath.replace(pagePath, '').split(path.sep).join('/');
-          if (p.endsWith('index.tsx')) {
+          if (p.endsWith('index.js')) {
             componentPaths.push(p);
           }
         }

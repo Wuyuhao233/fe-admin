@@ -17,22 +17,22 @@ export const routes: IRoutes[] = [
   //     {
   //       name: '用户列表',
   //       path: 'user',
-  //       component: './System/User/index.tsx',
+  //       component: './System/User/index.js',
   //     },
   //     {
   //       name: '角色管理',
   //       path: 'role',
-  //       component: './System/Role/index.tsx',
+  //       component: './System/Role/index.js',
   //     },
   //     {
   //       name: '权限管理',
   //       path: 'permission',
-  //       component: './System/Permission/index.tsx',
+  //       component: './System/Permission/index.js',
   //     },
   //     {
   //       name: '菜单管理',
   //       path: 'menu',
-  //       component: './System/Menu/index.tsx',
+  //       component: './System/Menu/index.js',
   //     },
   //   ],
   // },
@@ -43,12 +43,12 @@ export const routes: IRoutes[] = [
   //     {
   //       name: '物料管理',
   //       path: 'component',
-  //       component: './Warehouse/ComponentPage/index.tsx',
+  //       component: './Warehouse/ComponentPage/index.js',
   //     },
   //     {
   //       name: '类别管理',
   //       path: 'series',
-  //       component: './Warehouse/series/index.tsx',
+  //       component: './Warehouse/series/index.js',
   //     },
   //   ],
   // },

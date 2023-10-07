@@ -6,6 +6,7 @@ import stores from '@/store';
 import { history, RequestConfig } from '@umijs/max';
 import settings from '../config/defaultSettings';
 // @ts-ignore
+import ErrorBoundary from '@/components/ErrorBoundary';
 import {
   AvatarDropdown,
   AvatarName,
@@ -15,6 +16,7 @@ import {
 import SocketHandler from '@/components/SocketHandler';
 import renderIcon from '@/config/iconMap';
 import { User } from '@/declare/User';
+import { init } from '@/HuismanMonitor';
 import InitialComponent from '@/InitialComponent';
 import { MenuInfo } from '@/pages/System/controller/menu.controller';
 import { AxiosConfig } from '@/request/AxiosConfig';
@@ -211,16 +213,18 @@ const CheckPermissions = ({
  */
 const RTKProvider = ({ children }: { children: JSX.Element }) => {
   return (
-    <Provider store={stores.store}>
-      <PersistGate loading={null} persistor={stores.persistor}>
-        <InitialComponent>
-          <>
-            <SocketHandler />
-            <CheckPermissions>{children}</CheckPermissions>
-          </>
-        </InitialComponent>
-      </PersistGate>
-    </Provider>
+    <ErrorBoundary fallback={<p>Something went wrong</p>}>
+      <Provider store={stores.store}>
+        <PersistGate loading={null} persistor={stores.persistor}>
+          <InitialComponent>
+            <>
+              <SocketHandler />
+              <CheckPermissions>{children}</CheckPermissions>
+            </>
+          </InitialComponent>
+        </PersistGate>
+      </Provider>
+    </ErrorBoundary>
   );
 };
 /**
@@ -232,6 +236,10 @@ const RTKProvider = ({ children }: { children: JSX.Element }) => {
  * history，history 实例
  */
 export function rootContainer(container: React.ReactNode) {
-  console.log('rootContainer... ', document.getElementById('root'));
+  const monitor = init({
+    dsn: 'http://localhost:3333/api/v1/monitor/postGifInfo',
+  });
+  console.log('monitor... ', monitor);
+
   return createElement(RTKProvider, null, container);
 }

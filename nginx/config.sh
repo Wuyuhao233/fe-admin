@@ -9,7 +9,6 @@ cat >> /etc/nginx/conf.d/default.conf <<EOF
           server_name  localhost;
           #access_log  /var/log/nginx/host.access.log  main;
 
-        root /app/www;
         location /ff{
                 rewrite ^/ff(.*)$ $1 break;
                 add_header Content-Type application/json;
@@ -20,9 +19,10 @@ cat >> /etc/nginx/conf.d/default.conf <<EOF
         }
 
         location ^~/{
-                alias /app/www/;
-                index index.html;
-                add_header Content-Type text/html;
+             root /app/www/;
+             index index.html;
+             try_files \$uri \$uri /index.html;
+             client_max_body_size  500m;
         }
   }
     server{
@@ -32,12 +32,7 @@ cat >> /etc/nginx/conf.d/default.conf <<EOF
           #access_log  /var/log/nginx/host.access.log  main;
 
           root /app/www;
-           location /abc {
-                          alias /app/www/;
-                          index test.html;
-                          add_header Content-Type text/html;
-            }
-          location /ff{
+          location ^~/ff{
                   rewrite ^/ff(.*)$ $1 break;
                   add_header Content-Type application/json;
                   proxy_pass http://42.193.237.23:3333;
@@ -52,7 +47,7 @@ cat >> /etc/nginx/conf.d/default.conf <<EOF
           }
     }
 EOF
- 
+
  echo "starting web server"
- 
- nginx -g 'daemon off;'       
+
+ nginx -g 'daemon off;'

@@ -4,11 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff6158f4-7083-4782-b669-832e86896240" name="变更" comment="feat: 权限功能">
-      <change afterPath="$PROJECT_DIR$/public/libs/spark-md5.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/docker-publish.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/docker-publish.yml" afterDir="false" />
+    <list default="true" id="ff6158f4-7083-4782-b669-832e86896240" name="变更" comment="feat: eslint +prettier 修改">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/env.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/config/env.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nginx/config.sh" beforeDir="false" afterPath="$PROJECT_DIR$/nginx/config.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/config/pathName.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/pathName.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Home/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/plugins/readPageFile.plugin.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/plugins/readPageFile.plugin.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,23 +54,23 @@
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "E:/emos_admin/src/pages/System/components",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "pnpm",
-    "prettierjs.PrettierConfiguration.Package": "E:\\emos_admin\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "E:\\emos_admin\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/emos_admin/src/monitor/browerser&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;pnpm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;E:\\emos_admin\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;E:\\emos_admin\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -75,16 +82,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\emos_admin\src\pages\System\components" />
-      <recent name="E:\emos_admin\src\components\CusFormItem" />
-      <recent name="E:\emos_admin\src\pages" />
+      <recent name="E:\emos_admin\src\monitor\browerser" />
+      <recent name="E:\emos_admin\src\monitor\utils" />
+      <recent name="E:\emos_admin\src\monitor\shared" />
+      <recent name="E:\emos_admin\src\monitor\types" />
+      <recent name="E:\emos_admin\src\monitor\core" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\emos_admin\src\monitor" />
       <recent name="E:\emos_admin\src\pages\User\User" />
       <recent name="E:\emos_admin\src\pages\Login" />
       <recent name="E:\emos_admin\src\pages\User" />
       <recent name="E:\emos_admin\src\pages\Warehouse\ComponentPage" />
-      <recent name="E:\emos_admin\src\pages\Warehouse" />
     </key>
     <key name="es6.move.members.recent.items">
       <recent name="E:\emos_admin\src\utils\upload.ts" />
@@ -185,7 +194,16 @@
       <workItem from="1694950902700" duration="2658000" />
       <workItem from="1694954224970" duration="310000" />
       <workItem from="1695169641353" duration="344000" />
-      <workItem from="1695171111653" duration="1714000" />
+      <workItem from="1695171111653" duration="9785000" />
+      <workItem from="1695385681420" duration="85000" />
+      <workItem from="1695385869643" duration="2245000" />
+      <workItem from="1695628482039" duration="5078000" />
+      <workItem from="1695634148350" duration="8688000" />
+      <workItem from="1695686848896" duration="8776000" />
+      <workItem from="1695709563380" duration="9681000" />
+      <workItem from="1695775437465" duration="18470000" />
+      <workItem from="1695862054396" duration="3444000" />
+      <workItem from="1696644730341" duration="11156000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 添加Dockerfile">
       <option name="closed" value="true" />
@@ -483,7 +501,15 @@
       <option name="project" value="LOCAL" />
       <updated>1693375118332</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="feat: eslint +prettier 修改">
+      <option name="closed" value="true" />
+      <created>1695180375160</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1695180375160</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -501,7 +527,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 修改docker登录信息" />
     <MESSAGE value="feat: finish login&amp;register page" />
     <MESSAGE value="feat: token刷新，需要返回初始的响应" />
     <MESSAGE value="feat: 完成上传服务" />
@@ -526,6 +551,7 @@
     <MESSAGE value="feat: modify" />
     <MESSAGE value="feat: 手动部署" />
     <MESSAGE value="feat: 权限功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 权限功能" />
+    <MESSAGE value="feat: eslint +prettier 修改" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: eslint +prettier 修改" />
   </component>
 </project>

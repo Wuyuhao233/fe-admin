@@ -2,6 +2,7 @@ import { defineConfig } from '@umijs/max';
 import defaultSettings from './defaultSettings';
 import { routes } from './routes';
 export default defineConfig({
+  mfsu: false,
   antd: {},
   icons: {},
   access: {},

@@ -1,4 +1,4 @@
-FROM gplane/pnpm:8.4.0 as builder
+FROM gplane/pnpm:latest as builder
 
 WORKDIR /data/web
 
@@ -16,6 +16,9 @@ RUN mkdir -p /app/www
 #将打包后的文件复制到nginx容器中
 COPY --from=builder /data/web/dist /app/www
 
+# 暴露 80端口和443端口，因为我们服务监听的端口就是80，443端口是为了支持https。
+EXPOSE 80
+EXPOSE 443
 EXPOSE 3001
 # 如果镜像中有nginx配置，先给删了
 RUN rm -rf /etc/nginx/conf.d/default.conf
