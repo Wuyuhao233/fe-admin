@@ -14,25 +14,22 @@ const performancePlugin: BasePluginType = {
   name: BrowserEventTypes.PERFORMANCE,
   monitor(notify) {
     on(window, 'load', () => {
-      console.log('performancePlugin -- load');
-      const observer = new PerformanceObserver((list) => {
-        const entries = list.getEntries();
-        for (const entry of entries) {
-          if (entry.name === 'first-paint') {
-            observer.disconnect();
-          }
+      const observer = new PerformanceObserver((entryList) => {
+        const entries = entryList.getEntries();
+        console.log('entries', entries);
+        if (observer) {
+          observer.disconnect();
+          notify('performance', {
+            entries,
+            resourceTimes: performance.getEntriesByType('resource'),
+          });
         }
-        notify('performance', {
-          entries,
-          resourceTimes: performance.getEntriesByType('resource'),
-        });
-        observer.disconnect();
+        // const resourceTimes = entries.filter((item) => item.initiatorType);
       });
-      // buffered 属性表示是否观察缓存数据，也就是说观察代码添加时机比事情触发时机晚也没关系。
-      observer.observe({ type: 'paint', buffered: true });
-      observer.observe({ type: 'largest-contentful-paint', buffered: true });
-      //   监听资源加载
-      observer.observe({ type: 'resource', buffered: true });
+      observer.observe({
+        entryTypes: ['resource', 'paint', 'largest-contentful-paint'],
+        buffered: true,
+      });
     });
   },
   transform(data: IPerformanceData): ReportDataType {
@@ -41,8 +38,13 @@ const performancePlugin: BasePluginType = {
     const FP = entries.find((item) => item.name === 'first-paint');
     const FCP = entries.find((item) => item.name === 'first-contentful-paint');
     const LCP = entries.find(
-      (item) => item.name === 'largest-contentful-paint',
+      (item) => item.entryType === 'largest-contentful-paint',
     );
+    console.log('performancePlugin -- transform', entries, {
+      FP,
+      FCP,
+      LCP,
+    });
     // 耗时超过250ms的资源
     const over250msResource = resourceTimes.filter(
       (item) => item.duration > 250,
@@ -50,14 +52,15 @@ const performancePlugin: BasePluginType = {
     return {
       name: 'performance',
       time: Date.now(),
-      type: BrowserEventTypes.PERFORMANCE,
+      type: 'performance' as const,
       level: Severity.Info,
       url: getLocationHref(),
       data: {
-        FP,
-        FCP,
-        LCP,
-        over250msResource,
+        FP: FP?.startTime,
+        FCP: FCP?.startTime,
+        LCP: LCP?.startTime,
+        over250msResource:
+          over250msResource.length > 0 ? over250msResource : null,
       },
     };
   },

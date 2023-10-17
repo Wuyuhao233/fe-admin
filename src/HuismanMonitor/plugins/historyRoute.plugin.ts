@@ -57,8 +57,10 @@ const historyRoutePlugin: BasePluginType = {
       name: 'routeChange',
       time: Date.now(),
       type: 'route',
-      from: data.from,
-      to: data.to,
+      data: {
+        from: data.from,
+        to: data.to,
+      },
     };
   },
   consumer(monitor, data: ReportDataType) {

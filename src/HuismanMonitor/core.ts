@@ -51,6 +51,15 @@ class HuismanMonitor {
         // 转换结果，并消费
         if (plugin.transform) {
           const res = plugin.transform(args);
+          // 添加auth信息
+          const user = localStorage.getItem('user');
+          if (user) {
+            const { id, name } = JSON.parse(user);
+            res.auth = {
+              id,
+              name,
+            };
+          }
           plugin.consumer && plugin.consumer(this, res);
         }
       };

@@ -189,8 +189,6 @@ export interface ReportDataType {
   userName?: string;
   time: number;
   url?: string;
-  from?: string;
-  to?: string;
   name: string;
   stack?: any;
   errorId?: string;

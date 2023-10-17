@@ -7,15 +7,11 @@
     <list default="true" id="ff6158f4-7083-4782-b669-832e86896240" name="变更" comment="feat: eslint +prettier 修改">
       <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/env.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/config/env.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nginx/config.sh" beforeDir="false" afterPath="$PROJECT_DIR$/nginx/config.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HuismanMonitor/core.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/HuismanMonitor/core.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HuismanMonitor/plugins/historyRoute.plugin.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/HuismanMonitor/plugins/historyRoute.plugin.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HuismanMonitor/plugins/performance.plugin.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/HuismanMonitor/plugins/performance.plugin.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HuismanMonitor/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/HuismanMonitor/types/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/config/pathName.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/pathName.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Home/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/plugins/readPageFile.plugin.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/plugins/readPageFile.plugin.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +62,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;pnpm&quot;,
     &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;E:\\emos_admin\\node_modules\\prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.prettier&quot;,
     &quot;ts.external.directory.path&quot;: &quot;E:\\emos_admin\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -204,6 +200,8 @@
       <workItem from="1695775437465" duration="18470000" />
       <workItem from="1695862054396" duration="3444000" />
       <workItem from="1696644730341" duration="11156000" />
+      <workItem from="1696725782728" duration="5837000" />
+      <workItem from="1697501394171" duration="596000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 添加Dockerfile">
       <option name="closed" value="true" />
